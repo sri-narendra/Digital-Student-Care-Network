@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UmeedBot - Your AI Mental Health Companion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== CSS Variables ===== */
+    :root {
+      --primary: #4a9d5e;
+      --primary-dark: #3a7d4e;
+      --primary-light: #e8f5e9;
+      --secondary: #6c63ff;
+      --accent: #ff7b54;
+      --text-dark: #2d3748;
+      --text-light: #718096;
+      --bg-light: #f7fafc;
+      --white: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* ===== Reset & Base Styles ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    h1, h2, h3, h4 {
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a52e0;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--text-dark);
+    }
+
+    .section-title p {
+      color: var(--text-light);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+
+    /* ===== Header ===== */
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .header-scrolled {
+      padding: 10px 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      max-height: 50px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links ul {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links ul li {
+      margin-left: 25px;
+    }
+
+    .nav-links ul li a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+
+    .nav-links ul li a:hover {
+      color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .nav-links ul li a.active {
+      color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .sign-up a {
+      background-color: var(--primary);
+      color: var(--white) !important;
+    }
+
+    .sign-up a:hover {
+      background-color: var(--primary-dark) !important;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-light) 0%, #d1e7dd 100%);
+      padding: 150px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTIwMCAzOTkuOTk5VjBIMHYzOTkuOTk5aDEyMDB6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9Ii4wMiIvPjxwYXRoIGQ9Ik0xMjAwIDM5OS45OTlWMTQwSDB2MjU5Ljk5OWgxMjAweiIgZmlsbD0iI2ZmZmZmZiIgZmlsbC1vcGFjaXR5PSIuMDUiLz48L2c+PC9zdmc+') no-repeat;
+      background-size: cover;
+      opacity: 0.7;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      color: var(--primary);
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* ===== Features Section ===== */
+    .features {
+      background-color: var(--white);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background-color: var(--bg-light);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--white);
+      font-size: 2rem;
+    }
+
+    .feature-card h3 {
+      color: var(--text-dark);
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      color: var(--text-light);
+    }
+
+    /* ===== How It Works Section ===== */
+    .how-it-works {
+      background-color: var(--primary-light);
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 50px;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      z-index: 1;
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .step-number {
+      width: 80px;
+      height: 80px;
+      background-color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      border: 3px solid var(--primary);
+    }
+
+    .step h3 {
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--text-light);
+      max-width: 250px;
+      margin: 0 auto;
+    }
+
+    /* ===== Testimonials Section ===== */
+    .testimonials {
+      background-color: var(--white);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .testimonial-card {
+      background-color: var(--bg-light);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      font-size: 5rem;
+      color: var(--primary-light);
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      margin-bottom: 20px;
+      font-style: italic;
+      color: var(--text-dark);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 15px;
+    }
+
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      margin-bottom: 5px;
+      color: var(--text-dark);
+    }
+
+    .author-info p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* ===== FAQ Section ===== */
+    .faq {
+      background-color: var(--bg-light);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 15px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .faq-question {
+      background-color: var(--white);
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .faq-question:hover {
+      background-color: var(--primary-light);
+    }
+
+    .faq-question i {
+      transition: var(--transition);
+    }
+
+    .faq-answer {
+      background-color: var(--white);
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-item.active .faq-question {
+      background-color: var(--primary-light);
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 20px;
+    }
+
+    /* ===== CTA Section ===== */
+    .cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cta p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-size: 1.1rem;
+    }
+
+    .cta .btn {
+      background-color: var(--white);
+      color: var(--primary);
+    }
+
+    .cta .btn:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 60px 0 20px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+
+    .footer-section p {
+      color: #a0aec0;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #a0aec0;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #a0aec0;
+      font-size: 0.9rem;
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .hero-text {
+        margin-bottom: 50px;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .steps {
+        flex-direction: column;
+        gap: 40px;
+      }
+      
+      .steps::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      
+      .nav-links.show {
+        max-height: 500px;
+        padding: 20px 0;
+      }
+      
+      .nav-links ul {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .nav-links ul li {
+        margin: 10px 0;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      section {
+        padding: 60px 0;
+      }
+      
+      .hero {
+        padding: 120px 0 60px;
+      }
+      
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header id="header">
+    <div class="container">
+      <div class="header-flex">
+        <div class="logo">
+          <span class="logo-text">UmeedBot</span>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <ul>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li class="sign-up"><a href="login.html">Sign Up</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero Section ===== -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Your AI Mental Health <span>Companion</span></h1>
+          <p>UmeedBot provides a safe, confidential space to share your feelings, track your emotional well-being, and find comfort whenever you need support. Available 24/7.</p>
+          <div class="hero-buttons">
+            <a href="login.html" class="btn btn-primary">Get Started</a>
+            <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiByeD0iMjAiIGZpbGw9IiNlOGY1ZTkiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSI4MCIgZmlsbD0iIzRhOWQ1ZSIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjQwIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSIxODAiIGN5PSIxMzAiIHI9IjgiIGZpbGw9IiM0YTlkNWUiLz4KPGNpcmNsZSBjeD0iMjIwIiBjeT0iMTMwIiByPSI4IiBmaWxsPSIjNGE5ZDVlIi8+CjxwYXRoIGQ9Ik0xNjAgMTkwQzE2MCAyMDAgMTgwIDIwNSAyMDAgMjA1QzIyMCAyMDUgMjQwIDIwMCAyNDAgMTkwIiBzdHJva2U9IiM0YTlkNWUiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xMjAgMTAwQzE0MCA4MCAxODAgNzAgMjIwIDgwQzI2MCA5MCAyODAgMTEwIDMwMCAxMzAiIHN0cm9rZT0iIzRhOWQ1ZSIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtZGFzaGFycmF5PSI1Ii8+CjxwYXRoIGQ9Ik0yODAgMTAwQzI2MCA4MCAyMjAgNzAgMTgwIDgwQzE0MCA5MCAxMjAgMTEwIDEwMCAxMzAiIHN0cm9rZT0iIzRhOWQ1ZSIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtZGFzaGFycmF5PSI1Ii8+Cjwvc3ZnPgo=" alt="UmeedBot Illustration">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Features Section ===== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>How UmeedBot Helps You</h2>
+        <p>Our AI companion offers a range of features designed to support your mental well-being journey</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h3>24/7 Chat Support</h3>
+          <p>Always available to listen and provide empathetic responses whenever you need to talk, day or night.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Mood Tracking</h3>
+          <p>Monitor your emotional patterns over time with our intuitive mood tracking and visualization tools.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-meditation"></i>
+          </div>
+          <h3>Guided Exercises</h3>
+          <p>Access a library of mindfulness, breathing, and relaxation exercises tailored to your needs.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Complete Privacy</h3>
+          <p>Your conversations are confidential and secure, with end-to-end encryption protecting your data.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3>Resource Library</h3>
+          <p>Explore articles, techniques, and resources curated by mental health professionals.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <h3>Personalized Reminders</h3>
+          <p>Set reminders for self-care activities, medication, or therapy sessions to stay on track.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== How It Works Section ===== -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-title">
+        <h2>How UmeedBot Works</h2>
+        <p>Getting started with your mental health companion is simple and straightforward</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Sign Up</h3>
+          <p>Create your free account in just a few minutes with our simple registration process.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Set Preferences</h3>
+          <p>Tell us about your needs and preferences so we can personalize your experience.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Start Chatting</h3>
+          <p>Begin conversations with UmeedBot whenever you need support or guidance.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Track Progress</h3>
+          <p>Monitor your emotional well-being over time with our insightful analytics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials Section ===== -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Users Say</h2>
+        <p>Hear from people who have found support through UmeedBot</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            UmeedBot has been a game-changer for me. As someone who struggles with anxiety, having a non-judgmental space to express my feelings at any time has made a huge difference in my life.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiNlOGY1ZTkiLz4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyMCIgcj0iOCIgZmlsbD0iIzRhOWQ1ZSIvPgo8cGF0aCBkPSJNMTUgNDBDMTUgMzUgMjAgMzAgMjUgMzBDMzAgMzAgMzUgMzUgMzUgNDAiIHN0cm9rZT0iIzRhOWQ1ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPgo=" alt="User Avatar">
+            </div>
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <p>User for 6 months</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            The mood tracking feature has helped me identify patterns in my emotions that I never noticed before. It's like having a personal mental health assistant.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdQb3J0PSIwIDAgNTAgNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iI2U4ZjVlOSIvPgo8Y2lyY2xlIGN4PSIyNSIgY3k9IjIwIiByPSI4IiBmaWxsPSIjNGE5ZDVlIi8+CjxwYXRoIGQ9Ik0xNSA0MEMxNSAzNSAyMCAzMCAyNSAzMEMzMCAzMCAzNSAzNSAzNSA0MCIgc3Ryb2tlPSIjNGE5ZDVlIiBzdHJva2Utd2lkdGg9IjIiLz4KPHJlY3QgeD0iMTUiIHk9IjE1IiB3aWR0aD0iMjAiIGhlaWdodD0iMyIgZmlsbD0iIzRhOWQ1ZSIvPgo8L3N2Zz4K" alt="User Avatar">
+            </div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p>User for 4 months</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            As a college student, UmeedBot has been invaluable during stressful exam periods. The guided breathing exercises help me calm down when I'm feeling overwhelmed.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiNlOGY1ZTkiLz4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyMCIgcj0iOCIgZmlsbD0iIzRhOWQ1ZSIvPgo8cGF0aCBkPSJNMTUgNDBDMTUgMzUgMjAgMzAgMjUgMzBDMzAgMzAgMzUgMzUgMzUgNDAiIHN0cm9rZT0iIzRhOWQ1ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjE4IiBjeT0iMTgiIHI9IjIiIGZpbGw9IiM0YTlkNWUiLz4KPGNpcmNsZSBjeD0iMzIiIGN5PSIxOCIgcj0iMiIgZmlsbD0iIzRhOWQ1ZSIvPgo8L3N2Zz4K" alt="User Avatar">
+            </div>
+            <div class="author-info">
+              <h4>Priya Patel</h4>
+              <p>User for 8 months</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ Section ===== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Find answers to common questions about UmeedBot</p>
+      </div>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is UmeedBot a replacement for therapy?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>No, UmeedBot is not a replacement for professional therapy. It's designed to provide support, resources, and a listening ear between therapy sessions or for those with mild to moderate mental health concerns. For serious mental health conditions, we always recommend consulting with a licensed mental health professional.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How does UmeedBot protect my privacy?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We take your privacy seriously. All conversations with UmeedBot are encrypted end-to-end, and we never share your personal information with third parties. You can use a pseudonym if you prefer to remain anonymous, and you have full control over your data.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is UmeedBot free to use?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, UmeedBot offers a free version with access to basic features including chat support, mood tracking, and some guided exercises. We also offer a premium subscription with additional features for those who want more comprehensive support.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can UmeedBot provide crisis support?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>While UmeedBot can provide support during difficult times, it is not a crisis intervention service. If you're experiencing a mental health emergency, please contact your local emergency services or a crisis hotline immediately. UmeedBot can provide you with relevant crisis resources if needed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA Section ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Start Your Mental Wellness Journey?</h2>
+      <p>Join thousands of users who have found support and comfort with UmeedBot. Sign up today and take the first step towards better mental health.</p>
+      <a href="login.html" class="btn">Get Started for Free</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About UmeedBot</h3>
+          <p>UmeedBot is an AI-powered mental health companion designed to provide support, resources, and a safe space for anyone navigating mental health challenges.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Mental Health Guides</a></li>
+            <li><a href="#">Crisis Resources</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Email: support@umeedbot.com</p>
+          <p>Phone: (555) 123-HELP</p>
+          <p>Address: 123 Wellness Street, Mindful City</p>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 UmeedBot. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById("menuToggle");
+    const nav = document.getElementById("navLinks");
+
+    toggle.addEventListener("click", (e) => {
+      nav.classList.toggle("show");
+      e.stopPropagation();
+    });
+
+    document.addEventListener("click", (e) => {
+      if(nav.classList.contains("show") && !nav.contains(e.target) && e.target !== toggle){
+        nav.classList.remove("show");
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("show");
+      });
+    });
+
+    // Header scroll effect
+    window.addEventListener("scroll", () => {
+      const header = document.getElementById("header");
+      if (window.scrollY > 100) {
+        header.classList.add("header-scrolled");
+      } else {
+        header.classList.remove("header-scrolled");
+      }
+    });
+
+    // FAQ accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        // Close all other items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+          }
+        });
+        
+        // Toggle current item
+        item.classList.toggle('active');
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Active navigation link highlighting
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (scrollY >= (sectionTop - 100)) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

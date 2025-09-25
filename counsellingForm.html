@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counselling Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9fdf8;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .form-section h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+        }
+        
+        .form-section h3 i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #388e3c;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .checkbox-group p {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .checkbox-group a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>One Step Away From Your Come-back Session!</h1>
+            <p>Fill out the form below and our team will get back to you shortly</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="counselingForm">
+                <div class="form-section">
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" placeholder="Enter your age" min="1" max="120" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" required>
+                                <option value="" disabled selected>Select your gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not-to-say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maritalStatus">Marital Status</label>
+                            <select id="maritalStatus" required>
+                                <option value="" disabled selected>Select your marital status</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="divorced">Divorced</option>
+                                <option value="widowed">Widowed</option>
+                                <option value="separated">Separated</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profession">Profession</label>
+                        <input type="text" id="profession" placeholder="Enter your profession" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-address-book"></i> Contact Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Email">Email Address</label>
+                            <input type="email" id="Email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Mobile">Mobile Number</label>
+                            <input type="tel" id="Mobile" placeholder="+91 9999*****9" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-calendar-alt"></i> Appointment Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="appointmentDate">Appointment Date & Time</label>
+                            <input type="datetime-local" id="appointmentDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modeOfAppointment">Mode Of Appointment</label>
+                            <select id="modeOfAppointment" required>
+                                <option value="" disabled selected>Select appointment type</option>
+                                <option value="online">Online Session (Video Call)</option>
+                                <option value="offline">In-Person Session</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-comment-dots"></i> Additional Information</h3>
+                    <div class="form-group">
+                        <label for="anythingToSay">Anything You'd Like To Share (Optional)</label>
+                        <textarea id="anythingToSay" rows="4" placeholder="Please share any specific concerns, preferences, or questions you might have..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" name="t&c" id="t&c" required>
+                    <p>I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>. I understand that my information will be kept confidential and used solely for scheduling purposes.</p>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Your Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('counselingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const maritalStatus = document.getElementById('maritalStatus').value;
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('Email').value;
+            const mobile = document.getElementById('Mobile').value;
+            const date = document.getElementById('appointmentDate').value;
+            const mode = document.getElementById('modeOfAppointment').value;
+            const terms = document.getElementById('t&c').checked;
+            
+            if (!name || !age || !gender || !maritalStatus || !profession || !email || !mobile || !date || !mode || !terms) {
+                alert('Please fill in all required fields and agree to the terms.');
+                return;
+            }
+            
+            alert('Thank you for your submission! Our team will contact you shortly to confirm your appointment.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
