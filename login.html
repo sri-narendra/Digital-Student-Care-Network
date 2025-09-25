@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Student Wellness Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -10,13 +11,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-    
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
       background-attachment: fixed;
     }
-    
+
     .wellness-card {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
@@ -24,66 +25,67 @@
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
-    
+
     .gradient-text {
       background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #43a047 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    
+
     .gradient-btn {
       background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #43a047 100%);
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
     }
-    
+
     .gradient-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(102, 187, 106, 0.4);
     }
-    
+
     .input-field {
       background: rgba(255, 255, 255, 0.8);
       border: 1px solid rgba(102, 187, 106, 0.3);
       transition: all 0.3s ease;
     }
-    
+
     .input-field:focus {
       border-color: #66bb6a;
       box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.2);
     }
-    
+
     .wellness-icon {
       color: #66bb6a;
       text-shadow: 0 2px 5px rgba(102, 187, 106, 0.3);
     }
-    
+
     .google-btn {
       border: 1px solid #dddddd;
       transition: all 0.3s ease;
     }
-    
+
     .google-btn:hover {
       border-color: #66bb6a;
       box-shadow: 0 2px 8px rgba(102, 187, 106, 0.2);
     }
-    
+
     .toggle-btn {
       color: #4caf50;
       transition: all 0.3s ease;
     }
-    
+
     .toggle-btn:hover {
       color: #388e3c;
     }
-    
+
     .wellness-symbol {
       font-size: 2.5rem;
       margin-bottom: 10px;
     }
   </style>
 </head>
+
 <body class="flex items-center justify-center min-h-screen p-4">
   <div class="wellness-card w-full max-w-md p-8">
     <!-- Wellness Symbols -->
@@ -109,16 +111,16 @@
         <input type="text" id="fullname" placeholder="Enter your full name"
           class="w-full input-field rounded-lg px-4 py-3" />
       </div>
-      
+
       <div>
         <div class="flex items-center mb-1">
           <i class="fas fa-envelope wellness-icon mr-2"></i>
           <label for="email" class="text-gray-700">Email Address</label>
         </div>
-        <input type="email" id="email" placeholder="Enter your email"
-          class="w-full input-field rounded-lg px-4 py-3" required />
+        <input type="email" id="email" placeholder="Enter your email" class="w-full input-field rounded-lg px-4 py-3"
+          required />
       </div>
-      
+
       <div>
         <div class="flex items-center mb-1">
           <i class="fas fa-lock wellness-icon mr-2"></i>
@@ -127,7 +129,7 @@
         <input type="password" id="password" placeholder="Enter your password"
           class="w-full input-field rounded-lg px-4 py-3" required />
       </div>
-      
+
       <button type="submit" class="w-full gradient-btn text-white font-semibold px-4 py-3 rounded-lg">
         <i class="fas fa-sign-in-alt mr-2"></i>
         <span id="submit-text">Login</span>
@@ -143,14 +145,8 @@
 
     <!-- Google Sign-in Button -->
     <div class="flex justify-center">
-      <div class="g_id_signin google-btn p-2 rounded-lg"
-           data-type="standard"
-           data-shape="rectangular"
-           data-theme="outline"
-           data-text="signin_with"
-           data-size="large"
-           data-logo_alignment="left"
-           data-width="300">
+      <div class="g_id_signin google-btn p-2 rounded-lg" data-type="standard" data-shape="rectangular"
+        data-theme="outline" data-text="signin_with" data-size="large" data-logo_alignment="left" data-width="300">
       </div>
     </div>
 
@@ -162,12 +158,8 @@
   </div>
 
   <!-- Google OAuth Setup -->
-  <div id="g_id_onload"
-       data-client_id="1048202385042-7i062mlgj5n2ku5pl2p8mo7o9j8j94kv.apps.googleusercontent.com"
-       data-context="signin"
-       data-ux_mode="popup"
-       data-callback="handleGoogleCredential"
-       data-auto_prompt="false">
+  <div id="g_id_onload" data-client_id="1048202385042-7i062mlgj5n2ku5pl2p8mo7o9j8j94kv.apps.googleusercontent.com"
+    data-context="signin" data-ux_mode="popup" data-callback="handleGoogleCredential" data-auto_prompt="false">
   </div>
 
   <script>
@@ -193,6 +185,7 @@
     });
 
     // Email/password signup/login
+    // Email/password signup/login
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value.trim();
@@ -200,27 +193,34 @@
       const fullname = document.getElementById("fullname").value.trim();
 
       try {
-        const { data: existing } = await supabaseClient
-          .from("users")
-          .select("*")
-          .eq("email", email)
-          .maybeSingle(); // safer
-
         if (isLogin) {
-          if (!existing || existing.password !== password) throw new Error("Invalid email or password");
-          localStorage.setItem("user_email", existing.email);
-          window.location.href = "dashboard.html";
+          // 🔹 LOGIN
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+          if (error) throw error;
         } else {
-          if (existing) throw new Error("User already exists");
-          await supabaseClient.from("users").insert([{ email, password, full_name: fullname, provider: "email" }]);
-          localStorage.setItem("user_email", email);
-          window.location.href = "dashboard.html";
+          // 🔹 SIGNUP
+          const { data, error } = await supabaseClient.auth.signUp({
+            email,
+            password,
+            options: {
+              data: { full_name: fullname } // metadata stored in auth.users
+            }
+          });
+          if (error) throw error;
         }
+
+        // Store locally & redirect
+        localStorage.setItem("user_email", email);
+        window.location.href = "dashboard.html";
       } catch (err) {
         console.error(err);
         alert(err.message);
       }
     });
+
 
     // Google login callback
     async function handleGoogleCredential(response) {
@@ -246,4 +246,5 @@
     }
   </script>
 </body>
+
 </html>
