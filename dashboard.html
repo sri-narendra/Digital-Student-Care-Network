@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Wellness Dashboard</title>
+  <title>Employee Wellness Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -21,46 +21,121 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+    
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -110px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
   <div class="w-full max-w-4xl p-6">
-    <h1 class="text-4xl font-bold text-center mb-2 gradient-text">Student Wellness Hub</h1>
-    <p class="text-center text-gray-600 mb-8">Your path to better mental health starts here</p>
+    <h1 class="text-4xl font-bold text-center mb-2 gradient-text">Employee Wellness Hub</h1>
+    <p class="text-center text-gray-600 mb-8">Your path to better work-life balance starts here</p>
     
     <div class="grid gap-6 sm:grid-cols-2">
       <!-- Quiz Option -->
       <button class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-6 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center h-full" onclick="window.location.href='quiz.html'">
         <i class="fas fa-clipboard-list text-4xl mb-4"></i>
-        <span class="text-xl font-semibold mb-2">Mood Assessment</span>
-        <p class="text-center text-blue-100 text-sm">Take a quick quiz to understand your current emotional state</p>
+        <span class="text-xl font-semibold mb-2">Workplace Stress Assessment</span>
+        <p class="text-center text-blue-100 text-sm mb-3">Take a quick assessment to understand your current stress levels</p>
+        <div class="mt-2 text-xs text-blue-200">
+          <p>Uses standardized screening tools:</p>
+          <div class="flex flex-wrap justify-center gap-2 mt-1">
+            <span class="tooltip">PHQ-9
+              <span class="tooltiptext">Patient Health Questionnaire-9: Assesses depression severity</span>
+            </span>
+            <span class="tooltip">GAD-7
+              <span class="tooltiptext">Generalized Anxiety Disorder-7: Measures anxiety symptoms</span>
+            </span>
+            <span class="tooltip">GHQ-12
+              <span class="tooltiptext">General Health Questionnaire-12: Screens for general psychological distress</span>
+            </span>
+          </div>
+        </div>
       </button>
       
       <!-- Appointment Option -->
       <button class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-6 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center h-full" onclick="window.location.href='counselling.html'">
         <i class="fas fa-calendar-check text-4xl mb-4"></i>
-        <span class="text-xl font-semibold mb-2">Counseling Session</span>
-        <p class="text-center text-green-100 text-sm">Book a confidential appointment with a mental health professional</p>
+        <span class="text-xl font-semibold mb-2">Professional Support</span>
+        <p class="text-center text-green-100 text-sm">Book a confidential appointment with an employee assistance counselor</p>
       </button>
       
       <!-- Resources Option -->
       <button class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white p-6 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center h-full" onclick="window.location.href='resources.html'">
         <i class="fas fa-book-open text-4xl mb-4"></i>
         <span class="text-xl font-semibold mb-2">Wellness Resources</span>
-        <p class="text-center text-amber-100 text-sm">Access helpful articles, exercises, and coping strategies</p>
+        <p class="text-center text-amber-100 text-sm">Access helpful articles, stress management techniques, and work-life balance strategies</p>
       </button>
       
       <!-- Chat with AI Option -->
       <button class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white p-6 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center h-full" onclick="window.location.href='aichat.html'">
         <i class="fas fa-robot text-4xl mb-4"></i>
         <span class="text-xl font-semibold mb-2">AI Support Chat</span>
-        <p class="text-center text-purple-100 text-sm">Talk to our supportive AI assistant anytime, day or night</p>
+        <p class="text-center text-purple-100 text-sm">Talk to our supportive AI assistant for immediate guidance</p>
       </button>
+    </div>
+    
+    <!-- Additional Info Section -->
+    <div class="mt-10 bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-center mb-4 gradient-text">About Our Assessment Tools</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <h3 class="font-semibold text-blue-700 mb-2">PHQ-9 (Depression)</h3>
+          <p class="text-sm text-gray-600">A 9-item questionnaire that measures depression severity based on DSM-IV criteria.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h3 class="font-semibold text-green-700 mb-2">GAD-7 (Anxiety)</h3>
+          <p class="text-sm text-gray-600">A 7-item scale that assesses anxiety symptoms and their severity.</p>
+        </div>
+        <div class="bg-amber-50 p-4 rounded-lg">
+          <h3 class="font-semibold text-amber-700 mb-2">GHQ-12 (General Health)</h3>
+          <p class="text-sm text-gray-600">A 12-item screening tool for detecting general psychological distress.</p>
+        </div>
+      </div>
+      <p class="text-center text-gray-600 text-sm mt-4">All assessments are confidential and designed to help identify areas where support may be beneficial.</p>
     </div>
     
     <!-- Encouraging Footer -->
     <div class="text-center mt-10 text-gray-600 text-sm">
-      <p>Remember: You're not alone. Taking the first step is a sign of strength.</p>
+      <p>Remember: Your well-being matters. Taking care of yourself improves both personal and professional life.</p>
     </div>
   </div>
 </body>
