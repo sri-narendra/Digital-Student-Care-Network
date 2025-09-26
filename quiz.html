@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood Quiz - Green Edition</title>
+    <title>Mood Quiz with AI Counselor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -16,6 +16,19 @@
             --text-dark: #1b5e20;
             --text-light: #e8f5e9;
             --shadow: rgba(46, 125, 50, 0.2);
+            
+            /* Chatbot colors */
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --user-msg: #7209b7;
+            --bot-msg: #4a4e69;
+            --chat-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
         }
 
         * {
@@ -26,7 +39,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 900px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
             background: linear-gradient(135deg, var(--background) 0%, #e8f5e9 100%);
@@ -35,7 +48,14 @@
             line-height: 1.6;
         }
 
-        .container {
+        .main-container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .quiz-container {
+            flex: 1;
             background-color: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px var(--shadow);
@@ -46,7 +66,7 @@
             animation: fadeIn 0.8s ease-out;
         }
 
-        .container::before {
+        .quiz-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -103,7 +123,7 @@
             display: inline-block;
             width: 30px;
             height: 30px;
-            background-color: var(--primary-white);
+            background-color: white;
             color: var(--primary-green);
             border-radius: 50%;
             text-align: center;
@@ -146,10 +166,7 @@
             border-radius: 50%;
             border: 2px solid var(--accent-green);
             background: white;
-            /* solid color */
-            background-image: none;
-            /* remove any gradient */
-            color: var(--primary-white);
+            color: var(--primary-green);
             font-weight: bold;
             font-size: 1.2rem;
             cursor: pointer;
@@ -159,7 +176,6 @@
             justify-content: center;
             padding: 10px;
         }
-
 
         .rating-btn:hover {
             transform: scale(1.1);
@@ -238,6 +254,28 @@
             display: block;
         }
 
+        .chat-button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
         .progress-container {
             width: 100%;
             height: 8px;
@@ -275,79 +313,299 @@
             transform: rotate(-10deg);
         }
 
+        /* Chatbot Styles - Increased Size */
+        .chat-container {
+            display: none;
+            width: 500px; /* Increased from 400px */
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: var(--chat-shadow);
+            overflow: hidden;
+            flex-direction: column;
+            height: 700px; /* Increased from 600px */
+            max-height: 85vh;
+            animation: fadeIn 0.5s ease-out;
+            margin-top: 20px;
+        }
+
+        .chat-header {
+            background: var(--gradient);
+            color: white;
+            padding: 25px; /* Increased padding */
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header h2 {
+            font-size: 1.8rem; /* Increased font size */
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .chat-header p {
+            font-size: 0.9rem; /* Slightly larger */
+            opacity: 0.9;
+        }
+
+        .status-indicator {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem; /* Slightly larger */
+        }
+
+        .status-dot {
+            width: 10px; /* Slightly larger */
+            height: 10px; /* Slightly larger */
+            background: #4ade80;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px; /* Increased padding */
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            max-width: 85%;
+            margin-bottom: 15px;
+            padding: 15px 18px; /* Increased padding */
+            border-radius: 18px;
+            line-height: 1.4;
+            position: relative;
+            animation: messageAppear 0.3s ease-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-size: 1.05rem; /* Slightly larger text */
+        }
+
+        @keyframes messageAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            background: var(--user-msg);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot {
+            background: white;
+            color: var(--dark);
+            align-self: flex-start;
+            border: 1px solid #e9ecef;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.75rem; /* Slightly larger */
+            opacity: 0.7;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .message.bot .message-time {
+            text-align: left;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: white;
+            padding: 15px 18px; /* Increased padding */
+            border-radius: 18px;
+            margin-bottom: 15px;
+            border: 1px solid #e9ecef;
+            border-bottom-left-radius: 5px;
+        }
+
+        .typing-dots {
+            display: flex;
+        }
+
+        .typing-dots span {
+            height: 10px; /* Slightly larger */
+            width: 10px; /* Slightly larger */
+            background: #adb5bd;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        .input-container {
+            display: flex;
+            padding: 20px; /* Increased padding */
+            background: white;
+            border-top: 1px solid #e9ecef;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            resize: none;
+            padding: 15px 18px; /* Increased padding */
+            border-radius: 24px;
+            border: 1px solid #e9ecef;
+            font-size: 1.05rem; /* Slightly larger */
+            outline: none;
+            transition: all 0.3s;
+            max-height: 120px;
+        }
+
+        .message-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .send-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 55px; /* Slightly larger */
+            height: 55px; /* Slightly larger */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .send-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .send-button:active {
+            transform: translateY(0);
+        }
+
+        .send-button i {
+            font-size: 1.3rem; /* Slightly larger */
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 25px; /* Increased padding */
+            background: white;
+            border-radius: 12px;
+            margin: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-message h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.4rem; /* Slightly larger */
+        }
+
+        .welcome-message p {
+            color: var(--dark);
+            opacity: 0.8;
+            margin-bottom: 5px;
+            font-size: 1rem; /* Slightly larger */
+        }
+
+        /* Scrollbar styling */
+        .messages-container::-webkit-scrollbar {
+            width: 8px; /* Slightly wider */
+        }
+
+        .messages-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb {
+            background: #c5c5c5;
+            border-radius: 10px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
         /* Animations */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
+            0% { transform: scale(0, 0); opacity: 0.5; }
+            100% { transform: scale(20, 20); opacity: 0; }
         }
 
         @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-10px);
-            }
-
-            60% {
-                transform: translateY(-5px);
-            }
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
         /* Responsive design */
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .chat-container {
+                width: 100%;
+                height: 600px;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
             }
 
-            .container {
+            .quiz-container {
                 padding: 20px 15px;
             }
 
@@ -368,226 +626,268 @@
             .rating-label {
                 font-size: 0.8rem;
             }
+            
+            .chat-container {
+                height: 500px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <i class="fas fa-leaf leaf-decoration leaf-1"></i>
-        <i class="fas fa-leaf leaf-decoration leaf-2"></i>
+    <div class="main-container">
+        <div class="quiz-container">
+            <i class="fas fa-leaf leaf-decoration leaf-1"></i>
+            <i class="fas fa-leaf leaf-decoration leaf-2"></i>
 
-        <h1><i class="fas fa-seedling" style="margin-right: 15px;"></i>Mood Self-Assessment Quiz</h1>
-        <p class="description">Take a moment to reflect on your current emotional state. Rate each statement from 1
-            (low) to 5 (high).</p>
+            <h1><i class="fas fa-seedling" style="margin-right: 15px;"></i>Mood Self-Assessment Quiz</h1>
+            <p class="description">Take a moment to reflect on your current emotional state. Rate each statement from 1
+                (low) to 5 (high).</p>
 
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <form id="quizForm">
+                <!-- Questions 1-12 -->
+                <div class="question" style="animation-delay: 0.1s">
+                    <label><span class="question-number">1</span>Do you feel more controlled by your own choices, or by
+                        others' expectations?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="1">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="1">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="1">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="1">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="1">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.2s">
+                    <label><span class="question-number">2</span>What drains you faster—your thoughts, your emotions, or the
+                        people around you?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="2">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="2">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="2">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="2">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="2">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.3s">
+                    <label><span class="question-number">3</span>Do your relationships recharge you, drain you, or leave you
+                        feeling unseen?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="3">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="3">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="3">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="3">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="3">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.4s">
+                    <label><span class="question-number">4</span>How do you usually handle stress—avoid, explode, hide, or
+                        overwork?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="4">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="4">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="4">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="4">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="4">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.5s">
+                    <label><span class="question-number">5</span>Do you crave more freedom, more love, more stability, or
+                        more recognition right now?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="5">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="5">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="5">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="5">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="5">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.6s">
+                    <label><span class="question-number">6</span>When you sit in silence, do you find peace, or do your
+                        thoughts attack you?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="6">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="6">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="6">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="6">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="6">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.7s">
+                    <label><span class="question-number">7</span>Do things you once enjoyed now feel pointless or
+                        flat?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="7">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="7">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="7">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="7">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="7">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.8s">
+                    <label><span class="question-number">8</span>Do you find yourself pulling away from people instead of
+                        reaching out?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="8">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="8">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="8">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="8">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="8">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 0.9s">
+                    <label><span class="question-number">9</span>Do you feel heavy inside, even when nothing bad just
+                        happened?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="9">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="9">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="9">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="9">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="9">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 1.0s">
+                    <label><span class="question-number">10</span>How often do you replay conversations, worrying what you
+                        said wrong?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="10">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="10">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="10">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="10">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="10">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 1.1s">
+                    <label><span class="question-number">11</span>How often do you avoid things because the "what ifs" scare
+                        you?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="11">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="11">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="11">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="11">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="11">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 1.2s">
+                    <label><span class="question-number">12</span>How often do you feel like your existence doesn't make a
+                        difference?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="12">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="12">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="12">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="12">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="12">5</button>
+                    </div>
+                </div>
+
+                <!-- Questions 13-15 -->
+                <div class="question" style="animation-delay: 1.3s">
+                    <label><span class="question-number">13</span>Do you keep re-checking things (locks, messages,
+                        decisions) because doubt won't let go?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="13">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="13">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="13">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="13">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="13">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 1.4s">
+                    <label><span class="question-number">14</span>Do you worry more about what could happen than what is
+                        happening?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="14">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="14">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="14">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="14">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="14">5</button>
+                    </div>
+                </div>
+
+                <div class="question" style="animation-delay: 1.5s">
+                    <label><span class="question-number">15</span>Do you constantly need reassurance, yet never fully
+                        believe it?</label>
+                    
+                    <div class="rating-scale">
+                        <button type="button" class="rating-btn" data-value="1" data-question="15">1</button>
+                        <button type="button" class="rating-btn" data-value="2" data-question="15">2</button>
+                        <button type="button" class="rating-btn" data-value="3" data-question="15">3</button>
+                        <button type="button" class="rating-btn" data-value="4" data-question="15">4</button>
+                        <button type="button" class="rating-btn" data-value="5" data-question="15">5</button>
+                    </div>
+                </div>
+
+                <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Submit
+                    Assessment</button>
+            </form>
+
+            <div id="result"></div>
         </div>
 
-        <form id="quizForm">
-            <!-- Questions 1-12 -->
-            <div class="question" style="animation-delay: 0.1s">
-                <label><span class="question-number">1</span>Do you feel more controlled by your own choices, or by
-                    others' expectations?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="1">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="1">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="1">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="1">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="1">5</button>
+        <!-- Chatbot Container -->
+        <div class="chat-container" id="chatbot">
+            <div class="chat-header">
+                <h2><i class="fas fa-comments"></i> Student Counselor</h2>
+                <p>Confidential & Secure • Available 24/7</p>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>Online</span>
                 </div>
             </div>
-
-            <div class="question" style="animation-delay: 0.2s">
-                <label><span class="question-number">2</span>What drains you faster—your thoughts, your emotions, or the
-                    people around you?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="2">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="2">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="2">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="2">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="2">5</button>
+            
+            <div class="messages-container" id="messages">
+                <div class="welcome-message">
+                    <h3>Welcome to Student Counseling</h3>
+                    <p>I'm here to help you with academic, personal, or career concerns.</p>
+                    <p>Our conversation is completely confidential.</p>
+                    <p>How can I assist you today?</p>
                 </div>
             </div>
-
-            <div class="question" style="animation-delay: 0.3s">
-                <label><span class="question-number">3</span>Do your relationships recharge you, drain you, or leave you
-                    feeling unseen?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="3">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="3">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="3">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="3">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="3">5</button>
+            
+            <div class="typing-indicator" id="typing">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
-
-            <div class="question" style="animation-delay: 0.4s">
-                <label><span class="question-number">4</span>How do you usually handle stress—avoid, explode, hide, or
-                    overwork?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="4">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="4">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="4">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="4">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="4">5</button>
-                </div>
+            
+            <div class="input-container">
+                <textarea class="message-input" id="msg" rows="1" placeholder="Type your message..."></textarea>
+                <button class="send-button" id="send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
             </div>
-
-            <div class="question" style="animation-delay: 0.5s">
-                <label><span class="question-number">5</span>Do you crave more freedom, more love, more stability, or
-                    more recognition right now?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="5">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="5">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="5">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="5">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="5">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 0.6s">
-                <label><span class="question-number">6</span>When you sit in silence, do you find peace, or do your
-                    thoughts attack you?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="6">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="6">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="6">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="6">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="6">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 0.7s">
-                <label><span class="question-number">7</span>Do things you once enjoyed now feel pointless or
-                    flat?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="7">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="7">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="7">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="7">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="7">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 0.8s">
-                <label><span class="question-number">8</span>Do you find yourself pulling away from people instead of
-                    reaching out?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="8">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="8">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="8">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="8">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="8">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 0.9s">
-                <label><span class="question-number">9</span>Do you feel heavy inside, even when nothing bad just
-                    happened?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="9">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="9">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="9">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="9">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="9">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 1.0s">
-                <label><span class="question-number">10</span>How often do you replay conversations, worrying what you
-                    said wrong?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="10">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="10">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="10">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="10">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="10">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 1.1s">
-                <label><span class="question-number">11</span>How often do you avoid things because the "what ifs" scare
-                    you?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="11">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="11">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="11">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="11">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="11">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 1.2s">
-                <label><span class="question-number">12</span>How often do you feel like your existence doesn't make a
-                    difference?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="12">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="12">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="12">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="12">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="12">5</button>
-                </div>
-            </div>
-
-            <!-- Questions 13-15 -->
-            <div class="question" style="animation-delay: 1.3s">
-                <label><span class="question-number">13</span>Do you keep re-checking things (locks, messages,
-                    decisions) because doubt won't let go?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="13">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="13">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="13">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="13">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="13">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 1.4s">
-                <label><span class="question-number">14</span>Do you worry more about what could happen than what is
-                    happening?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="14">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="14">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="14">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="14">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="14">5</button>
-                </div>
-            </div>
-
-            <div class="question" style="animation-delay: 1.5s">
-                <label><span class="question-number">15</span>Do you constantly need reassurance, yet never fully
-                    believe it?</label>
-                
-                <div class="rating-scale">
-                    <button type="button" class="rating-btn" data-value="1" data-question="15">1</button>
-                    <button type="button" class="rating-btn" data-value="2" data-question="15">2</button>
-                    <button type="button" class="rating-btn" data-value="3" data-question="15">3</button>
-                    <button type="button" class="rating-btn" data-value="4" data-question="15">4</button>
-                    <button type="button" class="rating-btn" data-value="5" data-question="15">5</button>
-                </div>
-            </div>
-
-            <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Submit
-                Assessment</button>
-        </form>
-
-        <div id="result"></div>
+        </div>
     </div>
 
     <script>
@@ -597,6 +897,7 @@
             const progressContainer = document.querySelector('.progress-container');
             const progressBar = document.getElementById('progressBar');
             const ratingBtns = document.querySelectorAll('.rating-btn');
+            const chatContainer = document.getElementById('chatbot');
 
             // Store selected ratings
             const ratings = {};
@@ -679,8 +980,40 @@
                         resultIcon = '<i class="fas fa-heart result-icon" style="color: #f44336;"></i>';
                     }
 
+                    // Create chat button
+                    const chatButton = document.createElement('button');
+                    chatButton.className = 'chat-button';
+                    chatButton.innerHTML = '<i class="fas fa-robot"></i> Chat with our AI Counselor';
+                    
+                    // Store the result text for the chatbot
+                    const resultForChatbot = resultText;
+                    
+                    // Add click event to scroll to chatbot and send result as first message
+                    chatButton.addEventListener('click', function() {
+                        chatContainer.style.display = 'flex';
+                        chatContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        
+                        // Clear the welcome message and add the quiz result as the first message
+                        setTimeout(() => {
+                            const messagesContainer = document.getElementById('messages');
+                            messagesContainer.innerHTML = '';
+                            
+                            // Add the quiz result as the first message from the user
+                            addMessage("My quiz result: " + resultForChatbot, "user");
+                            
+                            // Show typing indicator
+                            showTypingIndicator();
+                            
+                            // Send the result to the chatbot API
+                            setTimeout(() => {
+                                sendQuizResultToChatbot(resultForChatbot);
+                            }, 1000);
+                        }, 500);
+                    });
+
                     // Display result with animation
                     resultDiv.innerHTML = `${resultIcon}<p>${resultText}</p>`;
+                    resultDiv.appendChild(chatButton);
                     resultDiv.style.display = 'block';
 
                     // Add a slight bounce animation to the result
@@ -695,6 +1028,121 @@
                     }, 500);
                 }, 1500);
             });
+
+            // Chatbot functionality
+            const API_URL = "https://sih-kts3.onrender.com/api/chat";
+
+            const sendBtn = document.getElementById("send");
+            const msgInput = document.getElementById("msg");
+            const messagesDiv = document.getElementById("messages");
+            const typingIndicator = document.getElementById("typing");
+
+            // Auto-resize textarea
+            msgInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+
+            function getCurrentTime() {
+                const now = new Date();
+                return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement("div");
+                messageDiv.className = "message " + sender;
+                
+                const messageContent = document.createElement("div");
+                messageContent.textContent = text;
+                messageDiv.appendChild(messageContent);
+                
+                const timeDiv = document.createElement("div");
+                timeDiv.className = "message-time";
+                timeDiv.textContent = getCurrentTime();
+                messageDiv.appendChild(timeDiv);
+                
+                messagesDiv.appendChild(messageDiv);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            function showTypingIndicator() {
+                typingIndicator.style.display = 'block';
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            function hideTypingIndicator() {
+                typingIndicator.style.display = 'none';
+            }
+
+            // Function to send quiz result to chatbot
+            async function sendQuizResultToChatbot(resultText) {
+                try {
+                    const res = await fetch(API_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ message: "My quiz result: " + resultText }),
+                    });
+                    
+                    hideTypingIndicator();
+                    
+                    const data = await res.json();
+
+                    if (data.reply) {
+                        addMessage(data.reply, "bot");
+                    } else if (data.error) {
+                        addMessage("Error: " + data.error, "bot");
+                    }
+                } catch (err) {
+                    hideTypingIndicator();
+                    addMessage("⚠️ Could not connect to the server. Please try again later.", "bot");
+                }
+            }
+
+            async function sendMessage() {
+                const text = msgInput.value.trim();
+                if (!text) return;
+
+                addMessage(text, "user");
+                msgInput.value = "";
+                msgInput.style.height = 'auto';
+                
+                // Show typing indicator
+                showTypingIndicator();
+
+                try {
+                    const res = await fetch(API_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ message: text }),
+                    });
+                    
+                    hideTypingIndicator();
+                    
+                    const data = await res.json();
+
+                    if (data.reply) {
+                        addMessage(data.reply, "bot");
+                    // Auto-focus on the message input after receiving a response
+                        msgInput.focus();
+                    } else if (data.error) {
+                        addMessage("Error: " + data.error, "bot");
+                    }
+                } catch (err) {
+                    hideTypingIndicator();
+                    addMessage("⚠️ Could not connect to the server. Please try again later.", "bot");
+                }
+            }
+
+            sendBtn.addEventListener("click", sendMessage);
+            msgInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            // Add initial bot message after a short delay when chatbot is opened
+            // This will be replaced by the personalized message after quiz submission
         });
     </script>
 </body>

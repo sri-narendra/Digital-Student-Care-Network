@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +13,13 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -28,12 +29,19 @@
             overflow: hidden;
             animation: fadeIn 0.8s ease-out;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .header {
             background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
             color: white;
@@ -42,7 +50,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .header::before {
             content: '';
             position: absolute;
@@ -50,22 +58,27 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: pulse 8s infinite linear;
         }
-        
+
         @keyframes pulse {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
             position: relative;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        
+
         .header p {
             font-size: 1.1rem;
             opacity: 0.9;
@@ -73,71 +86,30 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        
-        .search-container {
-            padding: 20px 30px;
-            background: #f1f8e9;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .search-box {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .search-box input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #c8e6c9;
-            border-radius: 8px 0 0 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .search-box input:focus {
-            outline: none;
-            border-color: #4caf50;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-        }
-        
-        .search-btn {
-            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
-            color: white;
-            border: none;
-            border-radius: 0 8px 8px 0;
-            padding: 0 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .search-btn:hover {
-            background: linear-gradient(135deg, #1b5e20 0%, #388e3c 100%);
-        }
-        
+
         .categories-container {
             padding: 30px;
         }
-        
+
         .section-title {
             display: flex;
             align-items: center;
             margin-bottom: 25px;
             color: #2e7d32;
         }
-        
+
         .section-title i {
             margin-right: 10px;
             font-size: 1.5rem;
         }
-        
+
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
+
         .category-card {
             background-color: #f9fdf8;
             border-radius: 10px;
@@ -148,7 +120,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .category-card::before {
             content: '';
             position: absolute;
@@ -158,48 +130,48 @@
             height: 4px;
             background: linear-gradient(90deg, var(--accent-color), #4caf50);
         }
-        
+
         .category-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .category-header {
             padding: 20px;
             display: flex;
             align-items: center;
             background-color: rgba(232, 245, 233, 0.5);
         }
-        
+
         .category-header i {
             font-size: 1.8rem;
             margin-right: 15px;
             color: var(--accent-color);
-            background: rgba(255,255,255,0.9);
+            background: rgba(255, 255, 255, 0.9);
             width: 50px;
             height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         .category-header h3 {
             color: #2e7d32;
             font-size: 1.3rem;
         }
-        
+
         .category-body {
             padding: 20px;
         }
-        
+
         .category-body p {
             color: #555;
             line-height: 1.5;
             margin-bottom: 15px;
         }
-        
+
         .video-count {
             display: inline-block;
             background: linear-gradient(135deg, var(--accent-color), #4caf50);
@@ -209,7 +181,7 @@
             font-size: 0.9rem;
             font-weight: 600;
         }
-        
+
         .videos-section {
             display: none;
             margin-top: 30px;
@@ -219,7 +191,7 @@
             border-left: 4px solid #4caf50;
             position: relative;
         }
-        
+
         .videos-section::before {
             content: '';
             position: absolute;
@@ -229,12 +201,12 @@
             height: 4px;
             background: linear-gradient(90deg, #ff6b6b, #4caf50);
         }
-        
+
         .videos-section.active {
             display: block;
             animation: fadeIn 0.5s ease-out;
         }
-        
+
         .videos-header {
             display: flex;
             justify-content: space-between;
@@ -243,19 +215,19 @@
             padding-bottom: 15px;
             border-bottom: 1px solid #e0e0e0;
         }
-        
+
         .videos-header h3 {
             color: #2e7d32;
             font-size: 1.4rem;
             display: flex;
             align-items: center;
         }
-        
+
         .videos-header h3 i {
             margin-right: 10px;
             color: var(--accent-color);
         }
-        
+
         .back-btn {
             background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
             color: white;
@@ -268,22 +240,22 @@
             transition: all 0.3s ease;
             font-weight: 600;
         }
-        
+
         .back-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
         .back-btn i {
             margin-right: 5px;
         }
-        
+
         .videos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
-        
+
         .video-card {
             background-color: white;
             border-radius: 8px;
@@ -292,30 +264,30 @@
             transition: transform 0.3s ease;
             position: relative;
         }
-        
+
         .video-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
-        
+
         .video-thumbnail {
             position: relative;
             height: 180px;
             background-color: #e0e0e0;
             overflow: hidden;
         }
-        
+
         .video-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .video-card:hover .video-thumbnail img {
             transform: scale(1.05);
         }
-        
+
         .play-icon {
             position: absolute;
             top: 50%;
@@ -332,67 +304,40 @@
             font-size: 1.5rem;
             transition: all 0.3s ease;
         }
-        
+
         .video-card:hover .play-icon {
             background-color: var(--accent-color);
             transform: translate(-50%, -50%) scale(1.1);
         }
-        
+
         .video-info {
             padding: 15px;
         }
-        
+
         .video-title {
             font-weight: 600;
             margin-bottom: 10px;
             color: #333;
             line-height: 1.4;
         }
-        
+
         .video-description {
             font-size: 0.9rem;
             color: #666;
             line-height: 1.4;
         }
-        
+
         .video-duration {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 3px 8px;
             border-radius: 4px;
             font-size: 0.8rem;
         }
-        
-        .featured-section {
-            margin-top: 40px;
-            padding: 25px;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border-radius: 10px;
-            border-left: 4px solid #2196f3;
-        }
-        
-        .featured-videos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .featured-title {
-            color: #1565c0;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .featured-title i {
-            margin-right: 10px;
-            color: #2196f3;
-        }
-        
+
         .footer {
             background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
             color: white;
@@ -400,63 +345,53 @@
             text-align: center;
             margin-top: 30px;
         }
-        
+
         .footer p {
             opacity: 0.9;
         }
-        
+
         @media (max-width: 768px) {
             .categories-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .videos-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .featured-videos {
-                grid-template-columns: 1fr;
-            }
-            
+
             .header h1 {
                 font-size: 1.8rem;
             }
-            
+
             .categories-container {
                 padding: 20px;
             }
-            
+
             .videos-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .back-btn {
                 margin-top: 10px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>Enhanced Counseling Resource Hub</h1>
-            <p>Explore our collection of helpful videos organized by category. Find the guidance you need for your personal growth journey.</p>
+            <p>Explore our collection of helpful videos organized by category. Find the guidance you need for your
+                personal growth journey.</p>
         </div>
-        
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" placeholder="Search for specific topics or keywords...">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-        
         <div class="categories-container">
             <div class="section-title">
                 <i class="fas fa-layer-group"></i>
                 <h2>Counseling Categories</h2>
             </div>
-            
+
             <div class="categories-grid" id="categoriesGrid">
                 <!-- Career Counseling Category -->
                 <div class="category-card" data-category="career" style="--accent-color: #ff6b6b;">
@@ -465,11 +400,12 @@
                         <h3>Career Counseling</h3>
                     </div>
                     <div class="category-body">
-                        <p>Resources to help you navigate career challenges, find purpose, and achieve professional growth.</p>
+                        <p>Resources to help you navigate career challenges, find purpose, and achieve professional
+                            growth.</p>
                         <span class="video-count">5 videos</span>
                     </div>
                 </div>
-                
+
                 <!-- Childhood Trauma Category -->
                 <div class="category-card" data-category="trauma" style="--accent-color: #6a89cc;">
                     <div class="category-header">
@@ -481,7 +417,7 @@
                         <span class="video-count">5 videos</span>
                     </div>
                 </div>
-                
+
                 <!-- Bad Relationships Category -->
                 <div class="category-card" data-category="relationships" style="--accent-color: #f78fb3;">
                     <div class="category-header">
@@ -493,7 +429,7 @@
                         <span class="video-count">5 videos</span>
                     </div>
                 </div>
-                
+
                 <!-- Loneliness Category -->
                 <div class="category-card" data-category="loneliness" style="--accent-color: #f7d794;">
                     <div class="category-header">
@@ -505,7 +441,7 @@
                         <span class="video-count">5 videos</span>
                     </div>
                 </div>
-                
+
                 <!-- Financial Stress Category -->
                 <div class="category-card" data-category="financial" style="--accent-color: #cf6a87;">
                     <div class="category-header">
@@ -517,7 +453,7 @@
                         <span class="video-count">5 videos</span>
                     </div>
                 </div>
-                
+
                 <!-- Identity Crisis Category -->
                 <div class="category-card" data-category="identity" style="--accent-color: #786fa6;">
                     <div class="category-header">
@@ -530,70 +466,20 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Videos Section (initially hidden) -->
             <div class="videos-section" id="videosSection">
                 <div class="videos-header">
                     <h3 id="videosCategoryTitle"><i class="fas fa-play-circle"></i> Category Videos</h3>
-                    <button class="back-btn" id="backToCategories"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                    <button class="back-btn" id="backToCategories"><i class="fas fa-arrow-left"></i> Back to
+                        Categories</button>
                 </div>
                 <div class="videos-grid" id="videosGrid">
                     <!-- Videos will be dynamically inserted here -->
                 </div>
             </div>
-            
-            <!-- Featured Videos Section -->
-            <div class="featured-section">
-                <div class="featured-title">
-                    <i class="fas fa-star"></i>
-                    <h2>Featured Videos</h2>
-                </div>
-                <div class="featured-videos">
-                    <div class="video-card">
-                        <div class="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/CPAhCOMhJds/hqdefault.jpg" alt="Career Guidance">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">12:45</div>
-                        </div>
-                        <div class="video-info">
-                            <h4 class="video-title">Finding Your Career Path</h4>
-                            <p class="video-description">Discover how to align your career with your passions and strengths.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="video-card">
-                        <div class="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/USE89i0kiiQ/hqdefault.jpg" alt="Trauma Healing">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">18:30</div>
-                        </div>
-                        <div class="video-info">
-                            <h4 class="video-title">Understanding Childhood Trauma</h4>
-                            <p class="video-description">Learn how early experiences shape our adult lives and relationships.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="video-card">
-                        <div class="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/jCZdN_PL0f4/hqdefault.jpg" alt="Healthy Relationships">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">15:20</div>
-                        </div>
-                        <div class="video-info">
-                            <h4 class="video-title">Recognizing Unhealthy Relationships</h4>
-                            <p class="video-description">Identify red flags and patterns in toxic relationships.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        
+
         <div class="footer">
             <p>© 2023 Counseling Resource Hub. All rights reserved.</p>
         </div>
@@ -822,85 +708,66 @@
         const videosGrid = document.getElementById('videosGrid');
         const videosCategoryTitle = document.getElementById('videosCategoryTitle');
         const backToCategories = document.getElementById('backToCategories');
-        const searchInput = document.querySelector('.search-box input');
-        const searchBtn = document.querySelector('.search-btn');
 
         // Add click event to category cards
         document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 const category = this.getAttribute('data-category');
                 showVideos(category);
             });
         });
 
         // Back button functionality
-        backToCategories.addEventListener('click', function() {
+        backToCategories.addEventListener('click', function () {
             videosSection.classList.remove('active');
             categoriesGrid.style.display = 'grid';
         });
-
-        // Search functionality
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-
-        // Function to perform search
-        function performSearch() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            if (searchTerm === '') return;
-            
-            // Simple search implementation - in a real app, this would be more sophisticated
-            alert(`Search functionality would look for: "${searchTerm}"\n\nIn a real application, this would filter videos based on the search term.`);
-        }
 
         // Function to display videos for a selected category
         function showVideos(category) {
             // Hide categories grid
             categoriesGrid.style.display = 'none';
-            
+
             // Set category title and color
             videosCategoryTitle.innerHTML = `<i class="fas fa-play-circle"></i> ${categoryTitles[category]} Videos`;
             videosSection.style.setProperty('--accent-color', categoryColors[category]);
-            
+
             // Clear previous videos
             videosGrid.innerHTML = '';
-            
+
             // Get videos for the selected category
             const videos = videoData[category];
-            
+
             // Create video cards
             videos.forEach(video => {
                 const videoId = extractVideoId(video.url);
                 const videoCard = document.createElement('div');
                 videoCard.className = 'video-card';
                 videoCard.innerHTML = `
-                    <div class="video-thumbnail">
-                        <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="${video.title}">
-                        <div class="play-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="video-duration">${video.duration}</div>
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="${video.title}">
+                    <div class="play-icon">
+                        <i class="fas fa-play"></i>
                     </div>
-                    <div class="video-info">
-                        <h4 class="video-title">${video.title}</h4>
-                        <p class="video-description">${video.description}</p>
-                    </div>
-                `;
-                
+                    <div class="video-duration">${video.duration}</div>
+                </div>
+                <div class="video-info">
+                    <h4 class="video-title">${video.title}</h4>
+                    <p class="video-description">${video.description}</p>
+                </div>
+            `;
+
                 // Add click event to open video
-                videoCard.addEventListener('click', function() {
+                videoCard.addEventListener('click', function () {
                     window.open(video.url, '_blank');
                 });
-                
+
                 videosGrid.appendChild(videoCard);
             });
-            
+
             // Show videos section
             videosSection.classList.add('active');
-            
+
             // Scroll to videos section
             videosSection.scrollIntoView({ behavior: 'smooth' });
         }
@@ -911,17 +778,18 @@
             const match = url.match(regExp);
             return (match && match[7].length === 11) ? match[7] : null;
         }
-        
+
         // Add some interactive effects to category cards
         document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
+            card.addEventListener('mouseenter', function () {
                 this.style.transform = 'translateY(-5px) scale(1.02)';
             });
-            
-            card.addEventListener('mouseleave', function() {
+
+            card.addEventListener('mouseleave', function () {
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
     </script>
 </body>
+
 </html>
