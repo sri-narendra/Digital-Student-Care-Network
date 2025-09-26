@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UmeedBot - Your AI Mental Health Companion</title>
+  <title>UmeedBot - College Mental Health Support System</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* ===== CSS Variables ===== */
@@ -269,7 +269,6 @@
     .hero-image img {
       max-width: 100%;
       border-radius: 20px;
-      /* box-shadow: var(--shadow); */
       animation: float 6s ease-in-out infinite;
     }
 
@@ -279,9 +278,50 @@
       100% { transform: translateY(0px); }
     }
 
+    /* ===== Problem Statement Section ===== */
+    .problem-statement {
+      background-color: var(--white);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .problem-card {
+      background-color: var(--bg-light);
+      border-radius: 15px;
+      padding: 30px;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border-left: 5px solid var(--primary);
+    }
+
+    .problem-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .problem-card h3 {
+      color: var(--text-dark);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .problem-card h3 i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+
+    .problem-card p {
+      color: var(--text-light);
+    }
+
     /* ===== Features Section ===== */
     .features {
-      background-color: var(--white);
+      background-color: var(--bg-light);
     }
 
     .features-grid {
@@ -291,7 +331,7 @@
     }
 
     .feature-card {
-      background-color: var(--bg-light);
+      background-color: var(--white);
       border-radius: 15px;
       padding: 30px;
       text-align: center;
@@ -621,10 +661,6 @@
 
     /* ===== Responsive Design ===== */
     @media (max-width: 992px) {
-      .nav-links ul li a{
-        padding: 8px 5px;
-      }
-      
       .hero-content {
         flex-direction: column;
         text-align: center;
@@ -729,11 +765,12 @@
         <nav class="nav-links" id="navLinks">
           <ul>
             <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#features">Features</a></li>
+            <li><a href="#problem">The Problem</a></li>
+            <li><a href="#features">Solutions</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#faq">FAQ</a></li>
-            <li class="sign-up"><a href="login.html">Sign Up</a></li>
+            <li class="sign-up"><a href="login.html">Student Login</a></li>
           </ul>
         </nav>
       </div>
@@ -745,10 +782,10 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <h1>Your AI Mental Health <span>Companion</span></h1>
-          <p>UmeedBot provides a safe, confidential space to share your feelings, track your emotional well-being, and find comfort whenever you need support. Available 24/7.</p>
+          <h1>Digital Mental Health Support for <span>College Students</span></h1>
+          <p>UmeedBot provides a stigma-free, scalable psychological intervention system designed specifically for higher education institutions to address the growing mental health crisis among students.</p>
           <div class="hero-buttons">
-            <a href="login.html" class="btn btn-primary">Get Started</a>
+            <a href="login.html" class="btn btn-primary">Student Portal</a>
             <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
           </div>
         </div>
@@ -759,55 +796,83 @@
     </div>
   </section>
 
+  <!-- ===== Problem Statement Section ===== -->
+  <section class="problem-statement" id="problem">
+    <div class="container">
+      <div class="section-title">
+        <h2>The College Mental Health Crisis</h2>
+        <p>Mental health issues among college students have significantly increased, creating an urgent need for accessible, stigma-free support systems</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3><i class="fas fa-exclamation-triangle"></i> The Gap in Support</h3>
+          <p>Most higher education institutions, especially in rural and semi-urban areas, lack structured, scalable psychological intervention systems that students can access without fear of judgment.</p>
+        </div>
+        <div class="problem-card">
+          <h3><i class="fas fa-chart-line"></i> Rising Concerns</h3>
+          <p>Anxiety, depression, burnout, sleep disorders, academic stress, and social isolation are increasingly prevalent among college students, yet support resources remain limited.</p>
+        </div>
+        <div class="problem-card">
+          <h3><i class="fas fa-user-shield"></i> Stigma & Awareness</h3>
+          <p>College counselling centers are often under-utilized due to fear of judgment, lack of awareness about available services, and concerns about confidentiality.</p>
+        </div>
+        <div class="problem-card">
+          <h3><i class="fas fa-database"></i> Data-Driven Solutions</h3>
+          <p>Institutions lack centralized mental health monitoring systems or data-driven policy frameworks to recognize trends and plan effective interventions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Features Section ===== -->
   <section class="features" id="features">
     <div class="container">
       <div class="section-title">
-        <h2>How UmeedBot Helps You</h2>
-        <p>Our AI companion offers a range of features designed to support your mental well-being journey</p>
+        <h2>Our Comprehensive Solution</h2>
+        <p>UmeedBot integrates multiple support mechanisms to create a holistic mental health ecosystem for colleges</p>
       </div>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-comments"></i>
+            <i class="fas fa-robot"></i>
           </div>
-          <h3>24/7 Chat Support</h3>
-          <p>Always available to listen and provide empathetic responses whenever you need to talk, day or night.</p>
+          <h3>AI-Guided First-Aid Support</h3>
+          <p>Interactive chat system that offers immediate coping strategies and refers students to professionals when needed, available 24/7.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
+            <i class="fas fa-calendar-check"></i>
           </div>
-          <h3>Mood Tracking</h3>
-          <p>Monitor your emotional patterns over time with our intuitive mood tracking and visualization tools.</p>
+          <h3>Confidential Booking System</h3>
+          <p>Secure platform for students to book appointments with on-campus counsellors or mental health helplines without fear of stigma.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-meditation"></i>
+            <i class="fas fa-graduation-cap"></i>
           </div>
-          <h3>Guided Exercises</h3>
-          <p>Access a library of mindfulness, breathing, and relaxation exercises tailored to your needs.</p>
+          <h3>Psychoeducational Resource Hub</h3>
+          <p>Comprehensive library of videos, relaxation audio, and mental wellness guides available in multiple regional languages.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-shield-alt"></i>
+            <i class="fas fa-users"></i>
           </div>
-          <h3>Complete Privacy</h3>
-          <p>Your conversations are confidential and secure, with end-to-end encryption protecting your data.</p>
+          <h3>Peer Support Platform</h3>
+          <p>Moderated peer-to-peer support forum with trained student volunteers to foster community and reduce isolation.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-book"></i>
+            <i class="fas fa-chart-bar"></i>
           </div>
-          <h3>Resource Library</h3>
-          <p>Explore articles, techniques, and resources curated by mental health professionals.</p>
+          <h3>Admin Dashboard</h3>
+          <p>Anonymous data analytics for college authorities to recognize mental health trends and plan targeted interventions.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-language"></i>
           </div>
-          <h3>Personalized Reminders</h3>
-          <p>Set reminders for self-care activities, medication, or therapy sessions to stay on track.</p>
+          <h3>Cultural Context</h3>
+          <p>Tailored content that considers regional cultural context and language, unlike generic Western-oriented solutions.</p>
         </div>
       </div>
     </div>
@@ -818,28 +883,28 @@
     <div class="container">
       <div class="section-title">
         <h2>How UmeedBot Works</h2>
-        <p>Getting started with your mental health companion is simple and straightforward</p>
+        <p>A seamless integration process for colleges and easy access for students</p>
       </div>
       <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
-          <h3>Sign Up</h3>
-          <p>Create your free account in just a few minutes with our simple registration process.</p>
+          <h3>Institution Onboarding</h3>
+          <p>Colleges register their counseling services and resources with the platform.</p>
         </div>
         <div class="step">
           <div class="step-number">2</div>
-          <h3>Set Preferences</h3>
-          <p>Tell us about your needs and preferences so we can personalize your experience.</p>
+          <h3>Student Registration</h3>
+          <p>Students create anonymous profiles using their college credentials.</p>
         </div>
         <div class="step">
           <div class="step-number">3</div>
-          <h3>Start Chatting</h3>
-          <p>Begin conversations with UmeedBot whenever you need support or guidance.</p>
+          <h3>Access Support</h3>
+          <p>Students can chat with AI, book appointments, or join peer forums.</p>
         </div>
         <div class="step">
           <div class="step-number">4</div>
-          <h3>Track Progress</h3>
-          <p>Monitor your emotional well-being over time with our insightful analytics.</p>
+          <h3>Admin Monitoring</h3>
+          <p>College administrators access anonymized data to identify trends.</p>
         </div>
       </div>
     </div>
@@ -849,49 +914,49 @@
   <section class="testimonials" id="testimonials">
     <div class="container">
       <div class="section-title">
-        <h2>What Users Say</h2>
-        <p>Hear from people who have found support through UmeedBot</p>
+        <h2>What Students & Institutions Say</h2>
+        <p>Hear from those who have implemented or used UmeedBot</p>
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card">
           <div class="testimonial-text">
-            UmeedBot has been a game-changer for me. As someone who struggles with anxiety, having a non-judgmental space to express my feelings at any time has made a huge difference in my life.
+            As someone who struggled with anxiety throughout college, having a stigma-free platform like UmeedBot made all the difference. I could access support without fear of judgment from peers or professors.
           </div>
           <div class="testimonial-author">
             <div class="author-avatar">
               <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiNlOGY1ZTkiLz4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyMCIgcj0iOCIgZmlsbD0iIzRhOWQ1ZSIvPgo8cGF0aCBkPSJNMTUgNDBDMTUgMzUgMjAgMzAgMjUgMzBDMzAgMzAgMzUgMzUgMzUgNDAiIHN0cm9rZT0iIzRhOWQ1ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPgo=" alt="User Avatar">
             </div>
             <div class="author-info">
-              <h4>Sarah Johnson</h4>
-              <p>User for 6 months</p>
+              <h4>Rahul Sharma</h4>
+              <p>Engineering Student</p>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-text">
-            The mood tracking feature has helped me identify patterns in my emotions that I never noticed before. It's like having a personal mental health assistant.
+            The admin dashboard has given us unprecedented insights into student mental health trends. We've been able to implement targeted wellness programs that actually address student needs.
           </div>
           <div class="testimonial-author">
             <div class="author-avatar">
               <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdQb3J0PSIwIDAgNTAgNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iI2U4ZjVlOSIvPgo8Y2lyY2xlIGN4PSIyNSIgY3k9IjIwIiByPSI4IiBmaWxsPSIjNGE5ZDVlIi8+CjxwYXRoIGQ9Ik0xNSA0MEMxNSAzNSAyMCAzMCAyNSAzMEMzMCAzMCAzNSAzNSAzNSA0MCIgc3Ryb2tlPSIjNGE5ZDVlIiBzdHJva2Utd2lkdGg9IjIiLz4KPHJlY3QgeD0iMTUiIHk9IjE1IiB3aWR0aD0iMjAiIGhlaWdodD0iMyIgZmlsbD0iIzRhOWQ1ZSIvPgo8L3N2Zz4K" alt="User Avatar">
             </div>
             <div class="author-info">
-              <h4>Michael Chen</h4>
-              <p>User for 4 months</p>
+              <h4>Dr. Anjali Mehta</h4>
+              <p>Head of Student Welfare</p>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-text">
-            As a college student, UmeedBot has been invaluable during stressful exam periods. The guided breathing exercises help me calm down when I'm feeling overwhelmed.
+            The regional language resources make mental health support accessible to students from diverse backgrounds. This is something missing from most Western mental health apps.
           </div>
           <div class="testimonial-author">
             <div class="author-avatar">
               <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiNlOGY1ZTkiLz4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyMCIgcj0iOCIgZmlsbD0iIzRhOWQ1ZSIvPgo8cGF0aCBkPSJNMTUgNDBDMTUgMzUgMjAgMzAgMjUgMzBDMzAgMzAgMzUgMzUgMzUgNDAiIHN0cm9rZT0iIzRhOWQ1ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjE4IiBjeT0iMTgiIHI9IjIiIGZpbGw9IiM0YTlkNWUiLz4KPGNpcmNsZSBjeD0iMzIiIGN5PSIxOCIgcj0iMiIgZmlsbD0iIzRhOWQ1ZSIvPgo8L3N2Zz4K" alt="User Avatar">
             </div>
             <div class="author-info">
-              <h4>Priya Patel</h4>
-              <p>User for 8 months</p>
+              <h4>Priya Reddy</h4>
+              <p>Psychology Department</p>
             </div>
           </div>
         </div>
@@ -904,43 +969,43 @@
     <div class="container">
       <div class="section-title">
         <h2>Frequently Asked Questions</h2>
-        <p>Find answers to common questions about UmeedBot</p>
+        <p>Common questions about implementing and using UmeedBot</p>
       </div>
       <div class="faq-container">
         <div class="faq-item">
           <div class="faq-question">
-            <span>Is UmeedBot a replacement for therapy?</span>
+            <span>How does UmeedBot ensure student privacy?</span>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>No, UmeedBot is not a replacement for professional therapy. It's designed to provide support, resources, and a listening ear between therapy sessions or for those with mild to moderate mental health concerns. For serious mental health conditions, we always recommend consulting with a licensed mental health professional.</p>
+            <p>Student privacy is our top priority. All data is anonymized, conversations are encrypted, and we never share identifiable information. Students can use pseudonyms, and college administrators only see aggregated, anonymized data trends.</p>
           </div>
         </div>
         <div class="faq-item">
           <div class="faq-question">
-            <span>How does UmeedBot protect my privacy?</span>
+            <span>Can colleges customize UmeedBot for their specific needs?</span>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>We take your privacy seriously. All conversations with UmeedBot are encrypted end-to-end, and we never share your personal information with third parties. You can use a pseudonym if you prefer to remain anonymous, and you have full control over your data.</p>
+            <p>Yes, UmeedBot is designed to be customizable. Colleges can add their counseling resources, set up specific peer support programs, and tailor content to their institutional context and regional requirements.</p>
           </div>
         </div>
         <div class="faq-item">
           <div class="faq-question">
-            <span>Is UmeedBot free to use?</span>
+            <span>Is UmeedBot a replacement for professional counseling?</span>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Yes, UmeedBot offers a free version with access to basic features including chat support, mood tracking, and some guided exercises. We also offer a premium subscription with additional features for those who want more comprehensive support.</p>
+            <p>No, UmeedBot complements professional services by providing early intervention, resources, and support between sessions. It includes screening tools that can identify when professional help is needed and facilitates referrals.</p>
           </div>
         </div>
         <div class="faq-item">
           <div class="faq-question">
-            <span>Can UmeedBot provide crisis support?</span>
+            <span>How does the peer support system work?</span>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>While UmeedBot can provide support during difficult times, it is not a crisis intervention service. If you're experiencing a mental health emergency, please contact your local emergency services or a crisis hotline immediately. UmeedBot can provide you with relevant crisis resources if needed.</p>
+            <p>Peer supporters are trained student volunteers who moderate forums and provide support. The system includes safeguards, moderation tools, and escalation protocols to ensure a safe environment for all participants.</p>
           </div>
         </div>
       </div>
@@ -950,9 +1015,9 @@
   <!-- ===== CTA Section ===== -->
   <section class="cta">
     <div class="container">
-      <h2>Ready to Start Your Mental Wellness Journey?</h2>
-      <p>Join thousands of users who have found support and comfort with UmeedBot. Sign up today and take the first step towards better mental health.</p>
-      <a href="login.html" class="btn">Get Started for Free</a>
+      <h2>Ready to Transform Student Mental Health Support?</h2>
+      <p>Join educational institutions across the country in implementing a comprehensive, data-driven approach to student wellbeing.</p>
+      <a href="login.html" class="btn">Student Login</a>
     </div>
   </section>
 
@@ -962,7 +1027,7 @@
       <div class="footer-content">
         <div class="footer-section">
           <h3>About UmeedBot</h3>
-          <p>UmeedBot is an AI-powered mental health companion designed to provide support, resources, and a safe space for anyone navigating mental health challenges.</p>
+          <p>UmeedBot is a digital psychological intervention system designed specifically for higher education institutions to address the growing mental health crisis among college students.</p>
           <div class="social-links">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -974,17 +1039,17 @@
           <h3>Quick Links</h3>
           <ul class="footer-links">
             <li><a href="#home">Home</a></li>
-            <li><a href="#features">Features</a></li>
+            <li><a href="#problem">The Problem</a></li>
+            <li><a href="#features">Solutions</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
         <div class="footer-section">
           <h3>Resources</h3>
           <ul class="footer-links">
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Mental Health Guides</a></li>
+            <li><a href="#">Implementation Guide</a></li>
+            <li><a href="#">Research & Evidence</a></li>
             <li><a href="#">Crisis Resources</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Service</a></li>
@@ -992,13 +1057,13 @@
         </div>
         <div class="footer-section">
           <h3>Contact Us</h3>
-          <p>Email: support@umeedbot.com</p>
+          <p>Email: support@umeedbot.edu</p>
           <p>Phone: (555) 123-HELP</p>
-          <p>Address: 123 Wellness Street, Mindful City</p>
+          <p>Address: 123 Education Lane, Campus City</p>
         </div>
       </div>
       <div class="copyright">
-        <p>&copy; 2025 UmeedBot. All rights reserved.</p>
+        <p>&copy; 2025 UmeedBot - College Mental Health Initiative. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -1099,5 +1164,4 @@
     });
   </script>
 </body>
-
 </html>
