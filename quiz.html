@@ -39,19 +39,109 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
             background: linear-gradient(135deg, var(--background) 0%, #e8f5e9 100%);
             min-height: 100vh;
             color: var(--text-dark);
             line-height: 1.6;
+            display: flex;
+        }
+
+        /* Left Side Navbar Styles */
+        .navbar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .navbar-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e8f5e9;
+        }
+
+        .navbar-logo {
+            font-size: 32px;
+            color: var(--primary-green);
+        }
+
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .navbar-subtitle {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .navbar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-link:hover {
+            background-color: #f1f8e9;
+            color: var(--primary-green);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background-color: #e8f5e9;
+            color: var(--primary-green);
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            max-width: calc(100% - 250px);
         }
 
         .main-container {
             display: flex;
             gap: 30px;
             align-items: flex-start;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .quiz-container {
@@ -602,7 +692,20 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                flex-direction: column;
+            }
+
+            .navbar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 15px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 15px;
             }
 
             .quiz-container {
@@ -635,257 +738,292 @@
 </head>
 
 <body>
-    <div class="main-container">
-        <div class="quiz-container">
-            <i class="fas fa-leaf leaf-decoration leaf-1"></i>
-            <i class="fas fa-leaf leaf-decoration leaf-2"></i>
-
-            <h1><i class="fas fa-seedling" style="margin-right: 15px;"></i>Mood Self-Assessment Quiz</h1>
-            <p class="description">Take a moment to reflect on your current emotional state. Rate each statement from 1
-                (low) to 5 (high).</p>
-
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-
-            <form id="quizForm">
-                <!-- Questions 1-12 -->
-                <div class="question" style="animation-delay: 0.1s">
-                    <label><span class="question-number">1</span>Do you feel more controlled by your own choices, or by
-                        others' expectations?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="1">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="1">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="1">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="1">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="1">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.2s">
-                    <label><span class="question-number">2</span>What drains you faster—your thoughts, your emotions, or the
-                        people around you?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="2">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="2">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="2">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="2">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="2">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.3s">
-                    <label><span class="question-number">3</span>Do your relationships recharge you, drain you, or leave you
-                        feeling unseen?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="3">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="3">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="3">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="3">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="3">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.4s">
-                    <label><span class="question-number">4</span>How do you usually handle stress—avoid, explode, hide, or
-                        overwork?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="4">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="4">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="4">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="4">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="4">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.5s">
-                    <label><span class="question-number">5</span>Do you crave more freedom, more love, more stability, or
-                        more recognition right now?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="5">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="5">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="5">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="5">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="5">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.6s">
-                    <label><span class="question-number">6</span>When you sit in silence, do you find peace, or do your
-                        thoughts attack you?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="6">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="6">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="6">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="6">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="6">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.7s">
-                    <label><span class="question-number">7</span>Do things you once enjoyed now feel pointless or
-                        flat?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="7">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="7">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="7">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="7">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="7">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.8s">
-                    <label><span class="question-number">8</span>Do you find yourself pulling away from people instead of
-                        reaching out?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="8">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="8">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="8">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="8">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="8">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 0.9s">
-                    <label><span class="question-number">9</span>Do you feel heavy inside, even when nothing bad just
-                        happened?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="9">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="9">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="9">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="9">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="9">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 1.0s">
-                    <label><span class="question-number">10</span>How often do you replay conversations, worrying what you
-                        said wrong?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="10">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="10">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="10">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="10">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="10">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 1.1s">
-                    <label><span class="question-number">11</span>How often do you avoid things because the "what ifs" scare
-                        you?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="11">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="11">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="11">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="11">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="11">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 1.2s">
-                    <label><span class="question-number">12</span>How often do you feel like your existence doesn't make a
-                        difference?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="12">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="12">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="12">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="12">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="12">5</button>
-                    </div>
-                </div>
-
-                <!-- Questions 13-15 -->
-                <div class="question" style="animation-delay: 1.3s">
-                    <label><span class="question-number">13</span>Do you keep re-checking things (locks, messages,
-                        decisions) because doubt won't let go?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="13">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="13">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="13">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="13">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="13">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 1.4s">
-                    <label><span class="question-number">14</span>Do you worry more about what could happen than what is
-                        happening?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="14">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="14">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="14">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="14">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="14">5</button>
-                    </div>
-                </div>
-
-                <div class="question" style="animation-delay: 1.5s">
-                    <label><span class="question-number">15</span>Do you constantly need reassurance, yet never fully
-                        believe it?</label>
-                    
-                    <div class="rating-scale">
-                        <button type="button" class="rating-btn" data-value="1" data-question="15">1</button>
-                        <button type="button" class="rating-btn" data-value="2" data-question="15">2</button>
-                        <button type="button" class="rating-btn" data-value="3" data-question="15">3</button>
-                        <button type="button" class="rating-btn" data-value="4" data-question="15">4</button>
-                        <button type="button" class="rating-btn" data-value="5" data-question="15">5</button>
-                    </div>
-                </div>
-
-                <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Submit
-                    Assessment</button>
-            </form>
-
-            <div id="result"></div>
+    <!-- Left Side Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-robot navbar-logo"></i>
+            <div class="navbar-title">UmeedBot</div>
+            <div class="navbar-subtitle">Employee Wellness Assistant</div>
+        </a>
+        
+        <div class="navbar-nav">
+            <a href="dashboard.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="quiz.html" class="nav-link active">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Stress Assessment</span>
+            </a>
+            <a href="counselling.html" class="nav-link">
+                <i class="fas fa-calendar-check"></i>
+                <span>Professional Support</span>
+            </a>
+            <a href="resources.html" class="nav-link">
+                <i class="fas fa-book-open"></i>
+                <span>Wellness Resources</span>
+            </a>
+            <a href="aichat.html" class="nav-link">
+                <i class="fas fa-robot"></i>
+                <span>AI Support Chat</span>
+            </a>
         </div>
+    </nav>
 
-        <!-- Chatbot Container -->
-        <div class="chat-container" id="chatbot">
-            <div class="chat-header">
-                <h2><i class="fas fa-comments"></i> Student Counselor</h2>
-                <p>Confidential & Secure • Available 24/7</p>
-                <div class="status-indicator">
-                    <div class="status-dot"></div>
-                    <span>Online</span>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-container">
+            <div class="quiz-container">
+                <i class="fas fa-leaf leaf-decoration leaf-1"></i>
+                <i class="fas fa-leaf leaf-decoration leaf-2"></i>
+
+                <h1><i class="fas fa-seedling" style="margin-right: 15px;"></i>Mood Self-Assessment Quiz</h1>
+                <p class="description">Take a moment to reflect on your current emotional state. Rate each statement from 1
+                    (low) to 5 (high).</p>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
                 </div>
+
+                <form id="quizForm">
+                    <!-- Questions 1-12 -->
+                    <div class="question" style="animation-delay: 0.1s">
+                        <label><span class="question-number">1</span>Do you feel more controlled by your own choices, or by
+                            others' expectations?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="1">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="1">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="1">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="1">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="1">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.2s">
+                        <label><span class="question-number">2</span>What drains you faster—your thoughts, your emotions, or the
+                            people around you?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="2">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="2">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="2">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="2">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="2">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.3s">
+                        <label><span class="question-number">3</span>Do your relationships recharge you, drain you, or leave you
+                            feeling unseen?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="3">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="3">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="3">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="3">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="3">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.4s">
+                        <label><span class="question-number">4</span>How do you usually handle stress—avoid, explode, hide, or
+                            overwork?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="4">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="4">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="4">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="4">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="4">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.5s">
+                        <label><span class="question-number">5</span>Do you crave more freedom, more love, more stability, or
+                            more recognition right now?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="5">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="5">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="5">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="5">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="5">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.6s">
+                        <label><span class="question-number">6</span>When you sit in silence, do you find peace, or do your
+                            thoughts attack you?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="6">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="6">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="6">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="6">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="6">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.7s">
+                        <label><span class="question-number">7</span>Do things you once enjoyed now feel pointless or
+                            flat?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="7">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="7">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="7">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="7">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="7">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.8s">
+                        <label><span class="question-number">8</span>Do you find yourself pulling away from people instead of
+                            reaching out?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="8">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="8">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="8">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="8">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="8">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 0.9s">
+                        <label><span class="question-number">9</span>Do you feel heavy inside, even when nothing bad just
+                            happened?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="9">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="9">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="9">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="9">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="9">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 1.0s">
+                        <label><span class="question-number">10</span>How often do you replay conversations, worrying what you
+                            said wrong?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="10">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="10">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="10">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="10">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="10">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 1.1s">
+                        <label><span class="question-number">11</span>How often do you avoid things because the "what ifs" scare
+                            you?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="11">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="11">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="11">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="11">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="11">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 1.2s">
+                        <label><span class="question-number">12</span>How often do you feel like your existence doesn't make a
+                            difference?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="12">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="12">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="12">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="12">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="12">5</button>
+                        </div>
+                    </div>
+
+                    <!-- Questions 13-15 -->
+                    <div class="question" style="animation-delay: 1.3s">
+                        <label><span class="question-number">13</span>Do you keep re-checking things (locks, messages,
+                            decisions) because doubt won't let go?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="13">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="13">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="13">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="13">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="13">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 1.4s">
+                        <label><span class="question-number">14</span>Do you worry more about what could happen than what is
+                            happening?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="14">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="14">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="14">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="14">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="14">5</button>
+                        </div>
+                    </div>
+
+                    <div class="question" style="animation-delay: 1.5s">
+                        <label><span class="question-number">15</span>Do you constantly need reassurance, yet never fully
+                            believe it?</label>
+                        
+                        <div class="rating-scale">
+                            <button type="button" class="rating-btn" data-value="1" data-question="15">1</button>
+                            <button type="button" class="rating-btn" data-value="2" data-question="15">2</button>
+                            <button type="button" class="rating-btn" data-value="3" data-question="15">3</button>
+                            <button type="button" class="rating-btn" data-value="4" data-question="15">4</button>
+                            <button type="button" class="rating-btn" data-value="5" data-question="15">5</button>
+                        </div>
+                    </div>
+
+                    <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Submit
+                        Assessment</button>
+                </form>
+
+                <div id="result"></div>
             </div>
-            
-            <div class="messages-container" id="messages">
-                <div class="welcome-message">
-                    <h3>Welcome to Student Counseling</h3>
-                    <p>I'm here to help you with academic, personal, or career concerns.</p>
-                    <p>Our conversation is completely confidential.</p>
-                    <p>How can I assist you today?</p>
+
+            <!-- Chatbot Container -->
+            <div class="chat-container" id="chatbot">
+                <div class="chat-header">
+                    <h2><i class="fas fa-comments"></i> Student Counselor</h2>
+                    <p>Confidential & Secure • Available 24/7</p>
+                    <div class="status-indicator">
+                        <div class="status-dot"></div>
+                        <span>Online</span>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="typing-indicator" id="typing">
-                <div class="typing-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                
+                <div class="messages-container" id="messages">
+                    <div class="welcome-message">
+                        <h3>Welcome to Student Counseling</h3>
+                        <p>I'm here to help you with academic, personal, or career concerns.</p>
+                        <p>Our conversation is completely confidential.</p>
+                        <p>How can I assist you today?</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="input-container">
-                <textarea class="message-input" id="msg" rows="1" placeholder="Type your message..."></textarea>
-                <button class="send-button" id="send">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
+                
+                <div class="typing-indicator" id="typing">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="input-container">
+                    <textarea class="message-input" id="msg" rows="1" placeholder="Type your message..."></textarea>
+                    <button class="send-button" id="send">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1122,7 +1260,7 @@
 
                     if (data.reply) {
                         addMessage(data.reply, "bot");
-                    // Auto-focus on the message input after receiving a response
+                        // Auto-focus on the message input after receiving a response
                         msgInput.focus();
                     } else if (data.error) {
                         addMessage("Error: " + data.error, "bot");

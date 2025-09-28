@@ -33,10 +33,101 @@
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
       color: var(--dark);
+    }
+
+    /* Left Side Navbar Styles */
+    .navbar {
+      width: 250px;
+      background-color: white;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      overflow-y: auto;
+    }
+
+    .navbar-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e8f5e9;
+    }
+
+    .navbar-logo {
+      font-size: 32px;
+      color: #4caf50;
+    }
+
+    .navbar-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #43a047 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+
+    .navbar-subtitle {
+      font-size: 0.8rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .navbar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .nav-link {
+      color: #1b5e20;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 12px 15px;
+      border-radius: 8px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-link:hover {
+      background-color: #f1f8e9;
+      color: #2e7d32;
+      transform: translateX(5px);
+    }
+
+    .nav-link.active {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      border-left: 4px solid #2e7d32;
+    }
+
+    .nav-link i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 250px;
+      padding: 20px;
+      max-width: calc(100% - 250px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .chat-container {
@@ -290,6 +381,23 @@
 
     /* Responsive design */
     @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .navbar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 15px;
+      }
+
+      .main-content {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 15px;
+      }
+
       .chat-container {
         height: 95vh;
         width: 100%;
@@ -308,38 +416,73 @@
   </style>
 </head>
 <body>
-  <div class="chat-container">
-    <div class="chat-header">
-      <h1><i class="fas fa-comments"></i> Student Counsellor Chat</h1>
-      <p>Confidential & Secure • Available 24/7</p>
-      <div class="status-indicator">
-        <div class="status-dot"></div>
-        <span>Online</span>
-      </div>
-    </div>
+  <!-- Left Side Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <i class="fas fa-robot navbar-logo"></i>
+      <div class="navbar-title">UmeedBot</div>
+      <div class="navbar-subtitle">Employee Wellness Assistant</div>
+    </a>
     
-    <div class="messages-container" id="messages">
-      <div class="welcome-message">
-        <h2>Welcome to Student Counselling</h2>
-        <p>I'm here to help you with academic, personal, or career concerns.</p>
-        <p>Our conversation is completely confidential.</p>
-        <p>How can I assist you today?</p>
-      </div>
+    <div class="navbar-nav">
+      <a href="dashboard.html" class="nav-link">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="quiz.html" class="nav-link">
+        <i class="fas fa-clipboard-list"></i>
+        <span>Stress Assessment</span>
+      </a>
+      <a href="counselling.html" class="nav-link">
+        <i class="fas fa-calendar-check"></i>
+        <span>Professional Support</span>
+      </a>
+      <a href="resources.html" class="nav-link">
+        <i class="fas fa-book-open"></i>
+        <span>Wellness Resources</span>
+      </a>
+      <a href="aichat.html" class="nav-link active">
+        <i class="fas fa-robot"></i>
+        <span>AI Support Chat</span>
+      </a>
     </div>
-    
-    <div class="typing-indicator" id="typing">
-      <div class="typing-dots">
-        <span></span>
-        <span></span>
-        <span></span>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="chat-container">
+      <div class="chat-header">
+        <h1><i class="fas fa-comments"></i> Student Counsellor Chat</h1>
+        <p>Confidential & Secure • Available 24/7</p>
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          <span>Online</span>
+        </div>
       </div>
-    </div>
-    
-    <div class="input-container">
-      <textarea class="message-input" id="msg" rows="1" placeholder="Type your message..."></textarea>
-      <button class="send-button" id="send">
-        <i class="fas fa-paper-plane"></i>
-      </button>
+      
+      <div class="messages-container" id="messages">
+        <div class="welcome-message">
+          <h2>Welcome to Student Counselling</h2>
+          <p>I'm here to help you with academic, personal, or career concerns.</p>
+          <p>Our conversation is completely confidential.</p>
+          <p>How can I assist you today?</p>
+        </div>
+      </div>
+      
+      <div class="typing-indicator" id="typing">
+        <div class="typing-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      
+      <div class="input-container">
+        <textarea class="message-input" id="msg" rows="1" placeholder="Type your message..."></textarea>
+        <button class="send-button" id="send">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
     </div>
   </div>
 

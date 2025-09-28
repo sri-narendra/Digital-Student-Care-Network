@@ -16,6 +16,97 @@
         body {
             background-color: #f9fdf8;
             color: #333;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Side Navbar Styles */
+        .navbar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .navbar-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e8f5e9;
+        }
+
+        .navbar-logo {
+            font-size: 32px;
+            color: #4caf50;
+        }
+
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #43a047 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .navbar-subtitle {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .navbar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .nav-link {
+            color: #1b5e20;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-link:hover {
+            background-color: #f1f8e9;
+            color: #2e7d32;
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            max-width: calc(100% - 250px);
         }
         
         #hero {
@@ -299,7 +390,24 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
+        /* Responsive design */
         @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .navbar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 15px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+            
             #heroHead h1 {
                 font-size: 2.5rem;
             }
@@ -331,159 +439,194 @@
     </style>
 </head>     
 <body>
-    <section id="hero" class="hero">
-        <div id="heroCover">
-            <div id="heroHead">
-                <h1>Your Journey To</h1>
-                <h1 class="main-title">Mental Well-Being</h1>
-                <h1>Starts Here</h1>
-                <p class="subtitle">
-                    Connect with experienced, compassionate counsellors who understand 
-                    your unique needs. Take the first step towards a healthier, happier
-                    you with our personalized therapy sessions.
-                </p>
-            </div>
-                
-            <div id="bookingDiv">
-                <button class="btn" id="book" onclick="window.location.href='#counsellors'">Book Session</button>
-                <button class="btn" id="learn" onclick="window.location.href='#features'">Learn More</button>
-            </div>
-
-            <div id="features">
-                <div class="feature" id="feature1">
-                    <i class="fas fa-user-md"></i>
-                    <b>Licensed Professionals</b>
-                    <p>Experienced, licensed counselors with verified credentials.</p>
-                </div>
-
-                <div class="feature" id="feature2">
-                    <i class="fas fa-heart"></i>
-                    <b>Compassionate Care</b>
-                    <p>Tailored personalized care for your specific needs and circumstances.</p>
-                </div>
-                
-                <div class="feature" id="feature3">
-                    <i class="fas fa-users"></i>
-                    <b>Trusted Community</b>
-                    <p>Join thousands of people who have healed and are leading better lives.</p>
-                </div>
-            </div>
+    <!-- Left Side Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-robot navbar-logo"></i>
+            <div class="navbar-title">UmeedBot</div>
+            <div class="navbar-subtitle">Employee Wellness Assistant</div>
+        </a>
+        
+        <div class="navbar-nav">
+            <a href="dashboard.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="quiz.html" class="nav-link">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Stress Assessment</span>
+            </a>
+            <a href="counselling.html" class="nav-link active">
+                <i class="fas fa-calendar-check"></i>
+                <span>Professional Support</span>
+            </a>
+            <a href="resources.html" class="nav-link">
+                <i class="fas fa-book-open"></i>
+                <span>Wellness Resources</span>
+            </a>
+            <a href="aichat.html" class="nav-link">
+                <i class="fas fa-robot"></i>
+                <span>AI Support Chat</span>
+            </a>
         </div>
-    </section>
+    </nav>
 
-    <section id="counsellors">
-        <h1 class="section-title">Meet Our Professional Counsellors</h1>
-        <p class="section-subtitle">Our team of licensed professionals is here to support you on your journey to better mental health and personal growth.</p>
+    <!-- Main Content -->
+    <div class="main-content">
+        <section id="hero" class="hero">
+            <div id="heroCover">
+                <div id="heroHead">
+                    <h1>Your Journey To</h1>
+                    <h1 class="main-title">Mental Well-Being</h1>
+                    <h1>Starts Here</h1>
+                    <p class="subtitle">
+                        Connect with experienced, compassionate counsellors who understand 
+                        your unique needs. Take the first step towards a healthier, happier
+                        you with our personalized therapy sessions.
+                    </p>
+                </div>
+                    
+                <div id="bookingDiv">
+                    <button class="btn" id="book" onclick="window.location.href='#counsellors'">Book Session</button>
+                    <button class="btn" id="learn" onclick="window.location.href='#features'">Learn More</button>
+                </div>
 
-        <div id="counsellorCardSpace">
-            <div class="counsellorCard">
-                <div class="counsellorImage">
-                    <i class="fas fa-user"></i>
-                </div>
-                
-                <div class="counsellorsDetails">
-                    <h4>Dr. Sarah Johnson</h4>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                <div id="features">
+                    <div class="feature" id="feature1">
+                        <i class="fas fa-user-md"></i>
+                        <b>Licensed Professionals</b>
+                        <p>Experienced, licensed counselors with verified credentials.</p>
                     </div>
-                    <p>Experience: 8+ years</p>
-                    <div class="tags">
-                        <div class="tag">Anxiety</div>
-                        <div class="tag">Depression</div>
-                        <div class="tag">Relationships</div>
+
+                    <div class="feature" id="feature2">
+                        <i class="fas fa-heart"></i>
+                        <b>Compassionate Care</b>
+                        <p>Tailored personalized care for your specific needs and circumstances.</p>
                     </div>
-                    <div class="intro">
-                        <p>Dr. Johnson specializes in cognitive behavioral therapy and has helped hundreds of clients overcome anxiety and depression.</p>
+                    
+                    <div class="feature" id="feature3">
+                        <i class="fas fa-users"></i>
+                        <b>Trusted Community</b>
+                        <p>Join thousands of people who have healed and are leading better lives.</p>
                     </div>
-                    <button class="Appointment"  style="margin-top: -4px;" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
                 </div>
             </div>
-            
-            <div class="counsellorCard">
-                <div class="counsellorImage">
-                    <i class="fas fa-user"></i>
+        </section>
+
+        <section id="counsellors">
+            <h1 class="section-title">Meet Our Professional Counsellors</h1>
+            <p class="section-subtitle">Our team of licensed professionals is here to support you on your journey to better mental health and personal growth.</p>
+
+            <div id="counsellorCardSpace">
+                <div class="counsellorCard">
+                    <div class="counsellorImage">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    
+                    <div class="counsellorsDetails">
+                        <h4>Dr. Sarah Johnson</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>Experience: 8+ years</p>
+                        <div class="tags">
+                            <div class="tag">Anxiety</div>
+                            <div class="tag">Depression</div>
+                            <div class="tag">Relationships</div>
+                        </div>
+                        <div class="intro">
+                            <p>Dr. Johnson specializes in cognitive behavioral therapy and has helped hundreds of clients overcome anxiety and depression.</p>
+                        </div>
+                        <button class="Appointment"  style="margin-top: -4px;" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
+                    </div>
                 </div>
                 
-                <div class="counsellorsDetails">
-                    <h4>Michael Rodriguez</h4>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                <div class="counsellorCard">
+                    <div class="counsellorImage">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <p>Experience: 12+ years</p>
-                    <div class="tags">
-                        <div class="tag">Trauma</div>
-                        <div class="tag">PTSD</div>
-                        <div class="tag">Mindfulness</div>
+                    
+                    <div class="counsellorsDetails">
+                        <h4>Michael Rodriguez</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Experience: 12+ years</p>
+                        <div class="tags">
+                            <div class="tag">Trauma</div>
+                            <div class="tag">PTSD</div>
+                            <div class="tag">Mindfulness</div>
+                        </div>
+                        <div class="intro">
+                            <p>Michael uses evidence-based approaches and compassionate guidance to help clients process trauma and build lasting resilience.</p>
+                        </div>
+                        <button class="Appointment" style="margin-top: 28px;" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
                     </div>
-                    <div class="intro">
-                        <p>Michael uses evidence-based approaches and compassionate guidance to help clients process trauma and build lasting resilience.</p>
-                    </div>
-                    <button class="Appointment" style="margin-top: 28px;" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
-                </div>
-            </div>
-            
-            <div class="counsellorCard">
-                <div class="counsellorImage">
-                    <i class="fas fa-user"></i>
-                </div>
-                
-                <div class="counsellorsDetails">
-                    <h4>Dr. Emily Chen</h4>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                    <p>Experience: 6+ years</p>
-                    <div class="tags">
-                        <div class="tag">Family Therapy</div>
-                        <div class="tag">Teens</div>
-                        <div class="tag">Communication</div>
-                    </div>
-                    <div class="intro">
-                        <p>Dr. Chen specializes in family systems therapy and helping adolescents navigate life challenges.</p>
-                    </div>
-                    <button class="Appointment" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
-                </div>
-            </div>
-            
-            <div class="counsellorCard">
-                <div class="counsellorImage">
-                    <i class="fas fa-user"></i>
                 </div>
                 
-                <div class="counsellorsDetails">
-                    <h4>James Wilson</h4>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                <div class="counsellorCard">
+                    <div class="counsellorImage">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <p>Experience: 15+ years</p>
-                    <div class="tags">
-                        <div class="tag">Addiction</div>
-                        <div class="tag">Recovery</div>
-                        <div class="tag">Life Transitions</div>
+                    
+                    <div class="counsellorsDetails">
+                        <h4>Dr. Emily Chen</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p>Experience: 6+ years</p>
+                        <div class="tags">
+                            <div class="tag">Family Therapy</div>
+                            <div class="tag">Teens</div>
+                            <div class="tag">Communication</div>
+                        </div>
+                        <div class="intro">
+                            <p>Dr. Chen specializes in family systems therapy and helping adolescents navigate life challenges.</p>
+                        </div>
+                        <button class="Appointment" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
                     </div>
-                    <div class="intro">
-                        <p>James has dedicated his career to supporting individuals through addiction recovery and major life changes.</p>
+                </div>
+                
+                <div class="counsellorCard">
+                    <div class="counsellorImage">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <button class="Appointment" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
+                    
+                    <div class="counsellorsDetails">
+                        <h4>James Wilson</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Experience: 15+ years</p>
+                        <div class="tags">
+                            <div class="tag">Addiction</div>
+                            <div class="tag">Recovery</div>
+                            <div class="tag">Life Transitions</div>
+                        </div>
+                        <div class="intro">
+                            <p>James has dedicated his career to supporting individuals through addiction recovery and major life changes.</p>
+                        </div>
+                        <button class="Appointment" onclick="window.location.href='counsellingForm.html'">Book Appointment</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </body>
 </html>

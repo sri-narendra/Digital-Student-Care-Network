@@ -17,7 +17,97 @@
         body {
             background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
             min-height: 100vh;
+            display: flex;
+        }
+
+        /* Left Side Navbar Styles */
+        .navbar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .navbar-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e8f5e9;
+        }
+
+        .navbar-logo {
+            font-size: 32px;
+            color: #4caf50;
+        }
+
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #43a047 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .navbar-subtitle {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .navbar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .nav-link {
+            color: #1b5e20;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-link:hover {
+            background-color: #f1f8e9;
+            color: #2e7d32;
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
             padding: 20px;
+            max-width: calc(100% - 250px);
         }
 
         .container {
@@ -350,7 +440,25 @@
             opacity: 0.9;
         }
 
+        /* Responsive design */
         @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .navbar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 15px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 15px;
+            }
+
             .categories-grid {
                 grid-template-columns: 1fr;
             }
@@ -380,108 +488,143 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Enhanced Counseling Resource Hub</h1>
-            <p>Explore our collection of helpful videos organized by category. Find the guidance you need for your
-                personal growth journey.</p>
+    <!-- Left Side Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-robot navbar-logo"></i>
+            <div class="navbar-title">UmeedBot</div>
+            <div class="navbar-subtitle">Employee Wellness Assistant</div>
+        </a>
+        
+        <div class="navbar-nav">
+            <a href="dashboard.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="quiz.html" class="nav-link">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Stress Assessment</span>
+            </a>
+            <a href="counselling.html" class="nav-link">
+                <i class="fas fa-calendar-check"></i>
+                <span>Professional Support</span>
+            </a>
+            <a href="resources.html" class="nav-link active">
+                <i class="fas fa-book-open"></i>
+                <span>Wellness Resources</span>
+            </a>
+            <a href="aichat.html" class="nav-link">
+                <i class="fas fa-robot"></i>
+                <span>AI Support Chat</span>
+            </a>
         </div>
-        <div class="categories-container">
-            <div class="section-title">
-                <i class="fas fa-layer-group"></i>
-                <h2>Counseling Categories</h2>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>Enhanced Counseling Resource Hub</h1>
+                <p>Explore our collection of helpful videos organized by category. Find the guidance you need for your
+                    personal growth journey.</p>
+            </div>
+            <div class="categories-container">
+                <div class="section-title">
+                    <i class="fas fa-layer-group"></i>
+                    <h2>Counseling Categories</h2>
+                </div>
+
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Career Counseling Category -->
+                    <div class="category-card" data-category="career" style="--accent-color: #ff6b6b;">
+                        <div class="category-header">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Career Counseling</h3>
+                        </div>
+                        <div class="category-body">
+                            <p>Resources to help you navigate career challenges, find purpose, and achieve professional
+                                growth.</p>
+                            <span class="video-count">5 videos</span>
+                        </div>
+                    </div>
+
+                    <!-- Childhood Trauma Category -->
+                    <div class="category-card" data-category="trauma" style="--accent-color: #6a89cc;">
+                        <div class="category-header">
+                            <i class="fas fa-child"></i>
+                            <h3>Childhood Trauma</h3>
+                        </div>
+                        <div class="category-body">
+                            <p>Understanding and healing from childhood experiences that continue to impact your life.</p>
+                            <span class="video-count">5 videos</span>
+                        </div>
+                    </div>
+
+                    <!-- Bad Relationships Category -->
+                    <div class="category-card" data-category="relationships" style="--accent-color: #f78fb3;">
+                        <div class="category-header">
+                            <i class="fas fa-heart"></i>
+                            <h3>Bad Relationships</h3>
+                        </div>
+                        <div class="category-body">
+                            <p>Guidance on recognizing, addressing, and healing from unhealthy relationship patterns.</p>
+                            <span class="video-count">5 videos</span>
+                        </div>
+                    </div>
+
+                    <!-- Loneliness Category -->
+                    <div class="category-card" data-category="loneliness" style="--accent-color: #f7d794;">
+                        <div class="category-header">
+                            <i class="fas fa-user"></i>
+                            <h3>Loneliness</h3>
+                        </div>
+                        <div class="category-body">
+                            <p>Strategies to cope with loneliness and build meaningful connections with others.</p>
+                            <span class="video-count">5 videos</span>
+                        </div>
+                    </div>
+
+                    <!-- Financial Stress Category -->
+                    <div class="category-card" data-category="financial" style="--accent-color: #cf6a87;">
+                        <div class="category-header">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <h3>Financial Stress</h3>
+                        </div>
+                        <div class="category-body">
+                            <p>Managing financial anxiety and developing healthy money habits for peace of mind.</p>
+                            <span class="video-count">5 videos</span>
+                        </div>
+                    </div>
+
+                    <!-- Identity Crisis Category -->
+                    <div class="category-card" data-category="identity" style="--accent-color: #786fa6;">
+                        <div class="category-header">
+                            <i class="fas fa-search"></i>
+                            <h3>Identity Crisis / Self Worth</h3>
+                        </div>
+                        <div class="category-body">
+                            <p>Exploring self-identity, building self-esteem, and finding your authentic self.</p>
+                            <span class="video-count">5 videos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Videos Section (initially hidden) -->
+                <div class="videos-section" id="videosSection">
+                    <div class="videos-header">
+                        <h3 id="videosCategoryTitle"><i class="fas fa-play-circle"></i> Category Videos</h3>
+                        <button class="back-btn" id="backToCategories"><i class="fas fa-arrow-left"></i> Back to
+                            Categories</button>
+                    </div>
+                    <div class="videos-grid" id="videosGrid">
+                        <!-- Videos will be dynamically inserted here -->
+                    </div>
+                </div>
             </div>
 
-            <div class="categories-grid" id="categoriesGrid">
-                <!-- Career Counseling Category -->
-                <div class="category-card" data-category="career" style="--accent-color: #ff6b6b;">
-                    <div class="category-header">
-                        <i class="fas fa-briefcase"></i>
-                        <h3>Career Counseling</h3>
-                    </div>
-                    <div class="category-body">
-                        <p>Resources to help you navigate career challenges, find purpose, and achieve professional
-                            growth.</p>
-                        <span class="video-count">5 videos</span>
-                    </div>
-                </div>
-
-                <!-- Childhood Trauma Category -->
-                <div class="category-card" data-category="trauma" style="--accent-color: #6a89cc;">
-                    <div class="category-header">
-                        <i class="fas fa-child"></i>
-                        <h3>Childhood Trauma</h3>
-                    </div>
-                    <div class="category-body">
-                        <p>Understanding and healing from childhood experiences that continue to impact your life.</p>
-                        <span class="video-count">5 videos</span>
-                    </div>
-                </div>
-
-                <!-- Bad Relationships Category -->
-                <div class="category-card" data-category="relationships" style="--accent-color: #f78fb3;">
-                    <div class="category-header">
-                        <i class="fas fa-heart"></i>
-                        <h3>Bad Relationships</h3>
-                    </div>
-                    <div class="category-body">
-                        <p>Guidance on recognizing, addressing, and healing from unhealthy relationship patterns.</p>
-                        <span class="video-count">5 videos</span>
-                    </div>
-                </div>
-
-                <!-- Loneliness Category -->
-                <div class="category-card" data-category="loneliness" style="--accent-color: #f7d794;">
-                    <div class="category-header">
-                        <i class="fas fa-user"></i>
-                        <h3>Loneliness</h3>
-                    </div>
-                    <div class="category-body">
-                        <p>Strategies to cope with loneliness and build meaningful connections with others.</p>
-                        <span class="video-count">5 videos</span>
-                    </div>
-                </div>
-
-                <!-- Financial Stress Category -->
-                <div class="category-card" data-category="financial" style="--accent-color: #cf6a87;">
-                    <div class="category-header">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <h3>Financial Stress</h3>
-                    </div>
-                    <div class="category-body">
-                        <p>Managing financial anxiety and developing healthy money habits for peace of mind.</p>
-                        <span class="video-count">5 videos</span>
-                    </div>
-                </div>
-
-                <!-- Identity Crisis Category -->
-                <div class="category-card" data-category="identity" style="--accent-color: #786fa6;">
-                    <div class="category-header">
-                        <i class="fas fa-search"></i>
-                        <h3>Identity Crisis / Self Worth</h3>
-                    </div>
-                    <div class="category-body">
-                        <p>Exploring self-identity, building self-esteem, and finding your authentic self.</p>
-                        <span class="video-count">5 videos</span>
-                    </div>
-                </div>
+            <div class="footer">
+                <p>© 2023 Counseling Resource Hub. All rights reserved.</p>
             </div>
-
-            <!-- Videos Section (initially hidden) -->
-            <div class="videos-section" id="videosSection">
-                <div class="videos-header">
-                    <h3 id="videosCategoryTitle"><i class="fas fa-play-circle"></i> Category Videos</h3>
-                    <button class="back-btn" id="backToCategories"><i class="fas fa-arrow-left"></i> Back to
-                        Categories</button>
-                </div>
-                <div class="videos-grid" id="videosGrid">
-                    <!-- Videos will be dynamically inserted here -->
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>© 2023 Counseling Resource Hub. All rights reserved.</p>
         </div>
     </div>
 
