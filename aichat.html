@@ -247,6 +247,61 @@
       text-align: left;
     }
 
+    /* Message Actions Styles */
+    .message-actions {
+      position: absolute;
+      top: -10px;
+      display: flex;
+      gap: 5px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      padding: 4px;
+    }
+
+    .message.user .message-actions {
+      right: 10px;
+    }
+
+    .message.bot .message-actions {
+      left: 10px;
+    }
+
+    .message:hover .message-actions {
+      opacity: 1;
+    }
+
+    .message-action {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      border: none;
+      cursor: pointer;
+      color: #6c757d;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .message-action:hover {
+      background: #e9ecef;
+      color: #495057;
+      transform: scale(1.1);
+    }
+
+    .message-action.copy:hover {
+      color: #28a745;
+    }
+
+    .message-action.edit:hover {
+      color: #007bff;
+    }
+
     .typing-indicator {
       display: none;
       align-self: flex-start;
@@ -360,6 +415,64 @@
       margin-bottom: 5px;
     }
 
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #333;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Edit message input */
+    .edit-message-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: inherit;
+      resize: none;
+      min-height: 80px;
+      margin-bottom: 10px;
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .edit-btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .edit-cancel {
+      background: #f8f9fa;
+      color: #6c757d;
+    }
+
+    .edit-save {
+      background: var(--primary);
+      color: white;
+    }
+
     /* Scrollbar styling */
     .messages-container::-webkit-scrollbar {
       width: 6px;
@@ -411,6 +524,11 @@
       
       .chat-header h1 {
         font-size: 1.5rem;
+      }
+      
+      .message-actions {
+        opacity: 1;
+        top: -12px;
       }
     }
   </style>
@@ -486,6 +604,9 @@
     </div>
   </div>
 
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
   <script>
     const API_URL = "https://sih-kts3.onrender.com/api/chat";
 
@@ -493,6 +614,7 @@
     const msgInput = document.getElementById("msg");
     const messagesDiv = document.getElementById("messages");
     const typingIndicator = document.getElementById("typing");
+    const toast = document.getElementById("toast");
 
     // Auto-resize textarea
     msgInput.addEventListener('input', function() {
@@ -505,6 +627,117 @@
       return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function createMessageActions(messageDiv, messageContent, sender) {
+      const actionsDiv = document.createElement("div");
+      actionsDiv.className = "message-actions";
+      
+      // Copy button
+      const copyBtn = document.createElement("button");
+      copyBtn.className = "message-action copy";
+      copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+      copyBtn.title = "Copy message";
+      copyBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(messageContent.textContent)
+          .then(() => {
+            showToast("Message copied to clipboard");
+          })
+          .catch(err => {
+            console.error("Failed to copy: ", err);
+            showToast("Failed to copy message");
+          });
+      });
+      
+      actionsDiv.appendChild(copyBtn);
+      
+      // Edit button (only for user messages)
+      if (sender === "user") {
+        const editBtn = document.createElement("button");
+        editBtn.className = "message-action edit";
+        editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+        editBtn.title = "Edit message";
+        editBtn.addEventListener("click", () => {
+          editMessage(messageDiv, messageContent);
+        });
+        
+        actionsDiv.appendChild(editBtn);
+      }
+      
+      messageDiv.appendChild(actionsDiv);
+    }
+
+    function editMessage(messageDiv, messageContent) {
+      const originalText = messageContent.textContent;
+      
+      // Create edit input
+      const editInput = document.createElement("textarea");
+      editInput.className = "edit-message-input";
+      editInput.value = originalText;
+      
+      // Create edit actions
+      const editActions = document.createElement("div");
+      editActions.className = "edit-actions";
+      
+      const cancelBtn = document.createElement("button");
+      cancelBtn.className = "edit-btn edit-cancel";
+      cancelBtn.textContent = "Cancel";
+      cancelBtn.addEventListener("click", () => {
+        messageContent.textContent = originalText;
+        messageDiv.innerHTML = "";
+        messageDiv.appendChild(messageContent);
+        messageDiv.appendChild(createTimeDiv());
+        createMessageActions(messageDiv, messageContent, "user");
+      });
+      
+      const saveBtn = document.createElement("button");
+      saveBtn.className = "edit-btn edit-save";
+      saveBtn.textContent = "Save";
+      saveBtn.addEventListener("click", () => {
+        const newText = editInput.value.trim();
+        if (newText && newText !== originalText) {
+          messageContent.textContent = newText;
+          messageDiv.innerHTML = "";
+          messageDiv.appendChild(messageContent);
+          messageDiv.appendChild(createTimeDiv());
+          createMessageActions(messageDiv, messageContent, "user");
+          showToast("Message updated");
+        } else {
+          messageContent.textContent = originalText;
+          messageDiv.innerHTML = "";
+          messageDiv.appendChild(messageContent);
+          messageDiv.appendChild(createTimeDiv());
+          createMessageActions(messageDiv, messageContent, "user");
+        }
+      });
+      
+      editActions.appendChild(cancelBtn);
+      editActions.appendChild(saveBtn);
+      
+      // Replace message content with edit interface
+      messageDiv.innerHTML = "";
+      messageDiv.appendChild(editInput);
+      messageDiv.appendChild(editActions);
+      
+      // Focus and select the text in the input
+      editInput.focus();
+      editInput.select();
+    }
+
+    function createTimeDiv() {
+      const timeDiv = document.createElement("div");
+      timeDiv.className = "message-time";
+      timeDiv.textContent = getCurrentTime();
+      return timeDiv;
+    }
+
     function addMessage(text, sender) {
       const messageDiv = document.createElement("div");
       messageDiv.className = "message " + sender;
@@ -513,10 +746,8 @@
       messageContent.textContent = text;
       messageDiv.appendChild(messageContent);
       
-      const timeDiv = document.createElement("div");
-      timeDiv.className = "message-time";
-      timeDiv.textContent = getCurrentTime();
-      messageDiv.appendChild(timeDiv);
+      messageDiv.appendChild(createTimeDiv());
+      createMessageActions(messageDiv, messageContent, sender);
       
       messagesDiv.appendChild(messageDiv);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
